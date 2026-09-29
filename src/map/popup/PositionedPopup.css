@@ -1,0 +1,36 @@
+/* src/map/popup/PositionedPopup.css */
+
+.mapdex-positioned-popup {
+  position: absolute;
+  /* Anchor the card's bottom-center (where the tip meets it) to the
+     projected point, with a small gap above it. */
+  transform: translate(-50%, calc(-100% - 14px));
+
+  z-index: 900;
+  pointer-events: auto;
+}
+
+/* Small triangle tail pointing down at the anchored point. */
+.mapdex-popup-tip {
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid #000000;
+}
+
+.mapdex-popup-tip::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: -7px;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid #ffffff;
+}

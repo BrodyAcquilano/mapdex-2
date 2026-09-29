@@ -1,0 +1,105 @@
+/* ─────────────────────────────────────────────
+   PriceRangeArray formatting
+   ───────────────────────────────────────────── */
+
+.price-range-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.price-range-category-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.price-range-category-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+.price-range-category-title {
+  margin: 0;
+}
+
+.price-range-row-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 0;
+}
+
+.price-range-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  width: 98%;
+}
+
+.price-range-field {
+  flex: 1;
+}
+
+.price-range-label {
+  display: flex;
+  margin-bottom: 6px;
+}
+
+.panel .price-range-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.modal .price-range-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+}
+
+.price-range-action-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  font-weight: bold;
+  font-size: 0.95rem;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.price-range-add-button {
+  color: #16a34a;
+}
+
+.price-range-add-button:hover {
+  color: #15803d;
+}
+
+.price-range-add-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 800px) {
+  .price-range-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .price-range-field {
+    width: 100%;
+  }
+
+  .price-range-label {
+    min-width: 0;
+    max-width: none;
+    width: auto;
+    font-size: 1rem;
+  }
+}

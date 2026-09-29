@@ -1,0 +1,107 @@
+/*
+ * The shell itself comes from panels.css's own .panel, which the root
+ * also carries - this file only adds what is specific to the picker.
+ * Duplicating the shell here meant the shared label/value/row
+ * utilities never applied, which is why the bounding box inputs looked
+ * nothing like the rest of the app.
+ */
+.boundary-picker-panel {
+  overflow-y: auto;
+}
+
+.boundary-picker-panel-header h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+  color: #1f2937;
+}
+
+.boundary-picker-panel-hint {
+  font-size: 0.85rem;
+  color: #374151;
+  background-color: rgba(51, 136, 255, 0.12);
+  border-radius: 10px;
+  padding: 8px 10px;
+  margin: 0 0 10px;
+}
+
+.boundary-picker-panel-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.boundary-picker-panel-field label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.boundary-picker-panel-field select {
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: #1f2937;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  padding: 8px 10px;
+  box-sizing: border-box;
+}
+
+.boundary-picker-panel-field select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.boundary-picker-panel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.boundary-picker-panel-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+}
+
+.boundary-picker-panel-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  font-family: inherit;
+  font-size: 0.9rem;
+  text-align: left;
+  color: #1f2937;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.boundary-picker-panel-item.selected {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.boundary-picker-panel-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  border: 2px solid;
+}
+
+.boundary-picker-panel-empty {
+  font-size: 0.85rem;
+  color: #6b7280;
+  padding: 8px 0;
+}

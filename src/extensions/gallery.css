@@ -1,0 +1,311 @@
+/* ===========================
+   Backdrop
+   =========================== */
+
+.gallery-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 2000;
+}
+
+/* ===========================
+   Overlay
+   =========================== */
+
+.gallery-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===========================
+   Modal shell
+   =========================== */
+
+.gallery-modal {
+  position: relative;
+  width: 100vw;
+  height: 98dvh;
+
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(30px);
+
+  border-radius: 22px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+
+  overflow: hidden;
+}
+
+/* ===========================
+   Close button
+   =========================== */
+
+.gallery-close {
+  position: absolute;
+  top: 16px;
+  left: 18px;
+  z-index: 30;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.35);
+
+  color: #ff4d4d;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* ===========================
+   Stage (image root)
+   =========================== */
+
+.gallery-stage {
+  position: absolute;
+  inset: 0;
+  padding:10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===========================
+   Image
+   =========================== */
+
+.gallery-image {
+  max-width: 100%;
+  max-height: calc(98% - 60px);
+  margin-bottom:40px;
+  object-fit: contain;
+  border-radius: 14px;
+  border: 2px solid rgb(255,255,255);
+}
+
+/* ===========================
+   Arrows
+   =========================== */
+
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+
+  width: 52px;
+  height: 52px;
+
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.35);
+
+  color: white;
+  font-size: 34px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-arrow-left {
+  left: 16px;
+}
+
+.gallery-arrow-right {
+  right: 16px;
+}
+
+/* ===========================
+   Dots
+   =========================== */
+
+.gallery-dots {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8000;
+
+  display: flex;
+  gap: 12px;
+}
+
+.gallery-dot {
+    width: 6px;
+  height: 6px;
+  min-width: 6px;
+  min-height: 6px;
+
+padding:2px;
+  border-radius: 100%;
+
+  background: rgb(151, 149, 149);
+
+border: 0px solid rgb(255,255,255);
+  cursor: pointer;
+}
+
+.gallery-dot-active {
+  background: rgb(255, 255, 255);
+ 
+  box-shadow: 2px 0 10px rgba(255, 255, 255, 1);
+  transform: scale(2);
+}
+
+/* ===========================
+   Editor controls
+   =========================== */
+
+.gallery-editor-controls {
+  position: static;
+  bottom: 18px;
+
+  z-index: 25;
+
+
+}
+
+.add-image-button {
+  background: rgb(33, 98, 47);
+  border: 1px solid rgb(16, 83, 35);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+ position: absolute;
+  bottom: 18px;
+  right: 10vw;
+  width: 150px;
+  justify-content: center;
+}
+
+.delete-image-button {
+
+  background: rgb(187, 51, 51);
+  border: 1px solid rgb(102, 17, 17);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+   position: absolute;
+  bottom: 18px;
+  left: 10vw;
+ width: 150px;
+  justify-content: center;
+}
+
+/* ===========================
+   Empty / loading
+   =========================== */
+
+.gallery-empty,
+.gallery-loading {
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+
+/* ===========================
+   Hover (desktop)
+   =========================== */
+
+@media (hover: hover) and (pointer: fine) {
+  .gallery-arrow:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .gallery-dot:hover {
+    transform: scale(1.2);
+  }
+
+  .add-image-button:hover {
+    background: rgb(64, 148, 99);
+  }
+
+  .delete-image-button:hover {
+    background: rgb(220, 99, 99);
+  }
+
+  .gallery-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+
+
+@media (max-width: 678px) {
+
+.gallery-overlay {
+  position: absolute;
+}
+
+
+  .gallery-modal {
+
+    flex-direction: column;
+    overflow-y:auto;
+    width:95vw;
+
+
+
+  }
+
+  .gallery-stage {
+    position: relative;
+    flex: 1;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   padding:8px;
+  }
+
+  .gallery-image{
+    display: flex;
+    flex:1;
+    margin-bottom: 10px;
+    
+  }
+
+  .gallery-dots {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+  display:flex;
+
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+
+  .gallery-editor-controls {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+ display:flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 12px;
+    margin-top: 20px;
+    gap: 10px;
+  }
+
+  .add-image-button {
+  position: static;
+   display:flex;
+   left:0;
+}
+
+.delete-image-button {
+position:static;
+ display:flex;
+ right:0;
+}
+}

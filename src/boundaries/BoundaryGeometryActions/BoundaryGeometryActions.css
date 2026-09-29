@@ -1,0 +1,66 @@
+/*
+ * The Boundaries page's own on-map action row.
+ *
+ * Sits where each page's Add workflow puts its own step buttons
+ * (.layers-phase-buttons-row / .aggregates-phase-buttons-row, top:
+ * 140px) and is styled to match them, per Brody's call: Back / End Part
+ * / Finish are the same kind of control as those pages' Back / Next
+ * Stage buttons, so they shouldn't look like a different species of
+ * button. The old styling - small, 8px radius, thin grey border, sat at
+ * 188px - came from mirroring the Editor page's data-item drawing row,
+ * which this workflow no longer shares a screen with.
+ *
+ * Also used by src/workflows/Boundaries.jsx for the Import Boundary
+ * step's own Back / Choose GeoJSON File pair, so the three boundary
+ * tools present one consistent row rather than three.
+ */
+.boundary-actions-row {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 900;
+
+  display: flex;
+  gap: 10px;
+}
+
+.boundary-action-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 999px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.boundary-action-button.primary {
+  color: #ffffff;
+  background-color: #2563eb;
+}
+
+.boundary-action-button.primary:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.boundary-action-button.secondary {
+  color: #1f2937;
+  background-color: rgba(239, 241, 241, 0.95);
+}
+
+.boundary-action-button.secondary:hover:not(:disabled) {
+  background-color: rgba(219, 223, 223, 0.95);
+}
+
+.boundary-action-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}

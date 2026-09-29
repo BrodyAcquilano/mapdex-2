@@ -1,0 +1,27 @@
+
+
+.map-panel {
+  height: 100%;
+  height: calc(100vh - 60px);
+  width: 100%;
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * The `hidden` attribute is how MapShellHost hides the map shell on
+ * pages that don't display it. The browser's own UA stylesheet sets
+ * `[hidden] { display: none }`, but that rule and `.map-panel`'s own
+ * `display: flex` above are equal specificity (one attribute
+ * selector, one class selector) - at a tie, an author stylesheet
+ * (this file) always wins over the UA stylesheet, so `.map-panel`'s
+ * `display: flex` was silently overriding `[hidden]` and the shell
+ * was never actually hidden. This rule combines the class and the
+ * attribute for higher specificity, so hidden reliably wins.
+ */
+.map-panel[hidden] {
+  display: none;
+}
+

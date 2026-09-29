@@ -1,0 +1,68 @@
+/* src/map/mapbox/styles/MapPanel.css */
+
+.mapbox-map-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+/*
+ * Themed background behind the map canvas, for the styles that offer
+ * the 2D projection override (MapboxMapShell.jsx's own
+ * mapPanelBackgroundClassName - only Standard so far). Visible before
+ * tiles finish loading, and at the edges of a flat 2D map where
+ * there's space beyond the rendered bounds - the Mapbox counterpart to
+ * Leaflet's old per-style `waterColor`. Not needed for 3D globe
+ * styles, which already render their own space/void natively.
+ */
+.mapbox-map-panel.standard-day {
+  background-color: #61cafe;
+}
+
+.mapbox-map-panel.standard-night {
+  background-color: #020e2b;
+}
+
+.mapbox-map-container {
+  /*
+   * Sized the same defensive way Leaflet's .map-background is,
+   * instead of position:absolute + inset:0, since Mapbox GL measures
+   * this container's size exactly once at construction and has no
+   * way to notice or correct itself if that measurement raced ahead
+   * of layout settling (see useMapboxMap.js).
+   */
+  flex: 1;
+
+  height: 100%;
+  min-height: calc(100vh - 60px);
+
+  width: 100%;
+
+  position: relative;
+  z-index: 0;
+}
+
+.mapbox-map-container .mapboxgl-canvas {
+  outline: none;
+}
+
+/*
+ * Draw mode. Selectors are scoped through .mapbox-map-panel (rather
+ * than just .draw-tool .mapboxgl-canvas-container) so they carry
+ * three class-selectors of specificity instead of two - mapbox-gl's
+ * own bundled stylesheet (mapbox-gl.css, imported from inside
+ * useMapboxMap.js) sets
+ * ".mapboxgl-canvas-container.mapboxgl-interactive { cursor: grab }",
+ * which is also two classes, and since that stylesheet happens to
+ * load after this one in the bundle, an equal-specificity rule here
+ * would silently lose the tie and never actually show.
+ */
+
+.mapbox-map-panel.draw-tool .mapboxgl-canvas-container {
+  cursor: crosshair;
+}
+
+/* Move mode */
+
+.mapbox-map-panel.move-tool .mapboxgl-canvas-container {
+  cursor: default;
+}

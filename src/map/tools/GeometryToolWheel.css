@@ -1,0 +1,769 @@
+/* src/map/tools/GeometryToolWheel.css */
+
+/*
+ * Self-contained sibling to GeometryToolbar.css - nothing here is
+ * shared with the old toolbar's stylesheet, so either file can be
+ * deleted/reverted independently.
+ */
+
+:root {
+  --wheel-surface: #eef0f3;
+  --wheel-surface-raised: #f4f6f8;
+  --wheel-ink: #3f454b;
+  --wheel-ink-soft: #6a7178;
+
+  --wheel-shadow-dark: rgba(163, 170, 179, 0.55);
+  --wheel-shadow-light: rgba(255, 255, 255, 0.9);
+
+  --wheel-draw-color: #3b82f6;
+  --wheel-edit-color: #d97706;
+  /*
+   * Purple - back from the earlier red now that delete (the only
+   * active/destructive tool this group had) has moved into
+   * EDIT_TOOLS (see that array's own comment in
+   * GeometryToolWheel.jsx). Every remaining tool here (union/split/
+   * intersection/clip) is still comingSoon, so purple just reads as
+   * a neutral, distinct group color again rather than a warning.
+   */
+  --wheel-transform-color: #8b5cf6;
+
+  /*
+   * Green - the import group's own tools bring outside data into the
+   * project (or, for the aggregator, pull several existing items'
+   * worth of data together), distinct in kind from every destructive
+   * transform-group operation above, so it gets its own color rather
+   * than sharing draw/edit/transform's.
+   */
+  --wheel-import-color: #16a34a;
+
+  /*
+   * The trigger button's ring/icon color when no tool is selected -
+   * without this it just had a plain, uncolored edge, which looked
+   * flat next to how a selected tool's own group color rings the
+   * button. Falls back into the same --wheel-trigger-accent slot a
+   * selected tool's color is set into (see GeometryToolWheel.jsx),
+   * rather than being a separate always-on color, so a real selection
+   * still correctly overrides it.
+   */
+  --wheel-idle-accent: #4ade80;
+
+  /*
+   * cqmin = whichever of .tool-wheel-overlay's own width/height
+   * (established as a size query container there) is SMALLER - the
+   * same value used for both width and height keeps this a true
+   * circle no matter the container's aspect ratio, and using the
+   * smaller dimension guarantees it never overflows either one. That
+   * naturally comes out different on mobile (usually
+   * width-constrained, portrait) vs desktop (usually
+   * height-constrained after the header) without needing separate
+   * breakpoint-specific sizes - per Brody's own request. The 92%
+   * (not 100%) leaves a small margin so the wheel doesn't touch the
+   * container's edges outright.
+   */
+  --wheel-size: 92cqmin;
+}
+
+
+/* ─────────────────────────────
+   Trigger button
+───────────────────────────── */
+
+/*
+ * Deliberately below the app's common "1000" tier for floating map
+ * chrome (SettingsToggle.css, TrackLocationButton.css, etc.) rather
+ * than matching it: at an equal z-index, whichever container happens
+ * to render later in the DOM wins ties, which is what let this
+ * trigger button's own (much lower-stakes) presence outrank, say,
+ * SettingsToggle's tooltip - a `.system-tooltip` z-index of 10000
+ * only ever counts against its own sibling content inside
+ * .settings-toggle-container's local stacking context (created by
+ * that container's own position+z-index), not against a totally
+ * separate container like this one. Sitting clearly below 1000 here
+ * settles that ordering directly instead of leaving it to DOM order.
+ * The open wheel itself (.tool-wheel-overlay) is unaffected by this -
+ * it's meant to sit above that tier while open, as an actual modal.
+ */
+/*
+ * The plain geometric match with ProjectTitle.jsx's own gap above
+ * SettingsToggle.jsx lands at ~120.5px (project title: 13.5px top +
+ * ~47px height = ~60.5px bottom; settings: 70px top, a ~9.5px gap;
+ * settings' own ~41px height puts its bottom at ~111px, +9.5 =
+ * ~120.5px). 120px on its own read as too high, and 130px (a version
+ * that added 10px on top to compensate for this button's own more
+ * diffuse box-shadow visually eating into the gap) read as too far
+ * the other way - so this splits the difference, per Brody's own
+ * call, landing between the two rather than exactly matching either.
+ */
+.tool-wheel-wrapper {
+  position: absolute;
+
+  top: 125px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  z-index: 900;
+}
+
+
+/*
+ * Sized to match TrackLocationButton.jsx's own button (48px: a 24px
+ * lucide icon plus its 10px padding and 2px border on each side) -
+ * Brody's own reference point for how big a single always-visible
+ * map button should be, as opposed to the tools inside the wheel
+ * itself, which stay at their original size.
+ */
+/*
+ * Idle state: only a dark edge shadow (no light/white shadow at all -
+ * that stays fully off until hovered), a bit more pronounced than a
+ * typical neumorphic raised look on its own. Hovering both
+ * intensifies that dark edge further and switches on a white ambient
+ * glow behind it (see the hover rule below) - the white glow is
+ * absent, not just subtle, until that happens.
+ */
+.tool-wheel-trigger {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: var(--wheel-surface-raised);
+  color: var(--wheel-ink);
+
+  cursor: pointer;
+
+  box-shadow:
+    5px 5px 11px var(--wheel-shadow-dark),
+    0 0 0 1px rgba(120, 126, 133, 0.3),
+    0 0 0 3px var(--wheel-trigger-accent, var(--wheel-idle-accent));
+
+  transition:
+    box-shadow 160ms ease,
+    transform 140ms ease;
+}
+
+
+.tool-wheel-trigger:hover {
+  transform: translateY(-1px);
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+  .tool-wheel-trigger:hover {
+    box-shadow:
+      8px 8px 18px var(--wheel-shadow-dark),
+      0 0 0 1.5px rgba(90, 96, 103, 0.45),
+      0 0 20px 4px var(--wheel-shadow-light),
+      0 0 0 3px var(--wheel-trigger-accent, var(--wheel-idle-accent));
+  }
+}
+
+
+.tool-wheel-trigger[aria-expanded="true"] {
+  box-shadow:
+    inset 3px 3px 7px var(--wheel-shadow-dark),
+    inset -3px -3px 6px var(--wheel-shadow-light),
+    0 0 0 3px var(--wheel-trigger-accent, var(--wheel-idle-accent));
+
+  transform: none;
+}
+
+
+.tool-wheel-trigger .wheel-tool-icon {
+  width: 24px;
+  height: 24px;
+}
+
+
+/* ─────────────────────────────
+   Overlay + wheel
+───────────────────────────── */
+
+/*
+ * position: absolute, not fixed - this is portaled into .main-layer
+ * (see GeometryToolWheel.jsx), which is itself position: relative and
+ * already sized to exactly the visible map-panel area below the
+ * header (see MainApp.css), so inset: 0 here centers the wheel over
+ * the map panel with no hardcoded header-height offset to maintain.
+ *
+ * Still the usual modal-overlay role - catches clicks outside the
+ * wheel (closing it, see the onClick in GeometryToolWheel.jsx) and
+ * keeps them from reaching the map behind it - just with no visible
+ * dimming, per Brody's own call. Invisible isn't the same as
+ * click-through: this has no background at all, but still has
+ * pointer-events (the default), so it stays a normal, if unseen,
+ * click-catching scrim rather than letting clicks fall through to
+ * the map underneath.
+ */
+.tool-wheel-overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 2000;
+
+  animation: tool-wheel-fade-in 140ms ease;
+
+  /*
+   * Establishes this as a size query container so .tool-wheel's own
+   * width/height (cqmin units) can size against exactly THIS box's
+   * actual dimensions, not the raw viewport - .main-layer (what this
+   * fills via inset: 0) is smaller than the viewport itself (a 60px
+   * header sits above it, see MainApp.css), so vw/vh units here would
+   * overshoot its real available space, especially vertically.
+   */
+  container-type: size;
+}
+
+
+@keyframes tool-wheel-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/*
+ * The wheel's own glassmorphism - a blue-tinted, semi-transparent
+ * pane, a blur for frosting, and a soft white sheen and edge to sell
+ * the "glass" read. This used to sit behind a separate opaque metal
+ * "frame" ring (.tool-wheel-metal, removed - Brody's own call), which
+ * needed a mask-image cut through it so this element's own
+ * backdrop-filter could reach the real map instead of just blurring
+ * the frame's own material; with the frame gone, this is simply the
+ * whole wheel's visible surface; nothing sits between it and the
+ * real map behind .tool-wheel-overlay (itself background-less) and
+ * .main-layer (no mask/filter/opacity of its own either).
+ */
+.tool-wheel {
+  position: relative;
+
+  width: var(--wheel-size);
+  height: var(--wheel-size);
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 50%),
+    rgba(20, 84, 110, 0.441);
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  animation: tool-wheel-pop-in 160ms cubic-bezier(0.2, 0.8, 0.3, 1.1) forwards;
+}
+
+
+/*
+ * The three "pie slice" boundary rails, one per DIVIDER_ANGLES_DEG
+ * entry in GeometryToolWheel.jsx. Positioned/rotated entirely via its
+ * own transform (not the left/top + polarOffset() approach the tool
+ * buttons use) - translate(-50%, -100%) puts this div's bottom-center
+ * exactly on the wheel's own center, rotate() then pivots the whole
+ * bar around that same point (transform-origin: 50% 100% keeps the
+ * pivot at the bottom-center through the rotation), so at 0deg it
+ * just points straight up from center - the same "0deg = 12 o'clock,
+ * clockwise-positive" convention used everywhere else in this file.
+ * Its own height reaches from the true center out to
+ * DIVIDER_OUTER_RADIUS_PCT of the radius, but its own mask-image (set
+ * inline, computed from DIVIDER_INNER_RADIUS_PCT) hides everything
+ * below DIVIDER_INNER_RADIUS_PCT - a matching gap to the center
+ * "untool" button's own outer edge, the same size as the gap left
+ * between the outer end and the frame, per Brody's own request.
+ *
+ * Neumorphic, not metallic - a dent pressed INTO the glass rather
+ * than a chrome rail (an earlier version tried that) or an opaque
+ * raised bump (an earlier version tried that too). Transparent
+ * background lets .tool-wheel's own glass show straight through it,
+ * and the box-shadow pair is inset (pressed in) rather than the usual
+ * outset (popped out) neumorphic look, so it reads as a groove carved
+ * into the glass instead of something sitting on top of it. Offset
+ * across the rail's own WIDTH (a plain 2px/-1px horizontal offset, no
+ * vertical component) rather than in a fixed screen direction - since
+ * transform: rotate() carries box-shadow along with it, an offset
+ * tied to the bar's own local axes reads as a consistently-lit dent
+ * at any rotation, where a fixed-direction shadow would look like
+ * it's lit from a different angle on each of the three rails. No
+ * glow, no animation - deliberately static.
+ */
+.tool-wheel-divider {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 6px;
+
+  transform-origin: 50% 100%;
+
+  border-radius: 3px;
+
+  background: transparent;
+
+  box-shadow:
+    inset 2px 0 3px rgba(0, 0, 0, 0.55),
+    inset -1px 0 2px rgba(255, 255, 255, 0.7);
+
+  pointer-events: none;
+}
+
+
+@keyframes tool-wheel-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* ─────────────────────────────
+   Tool + center buttons
+───────────────────────────── */
+
+/*
+ * Every button here has its own permanent `transform` (needed just to
+ * center it on its computed left/top point), and a `transform` value
+ * other than `none` creates a new stacking context regardless of
+ * z-index - so each button's own ::after tooltip is already trapped
+ * inside that button's local context; its high z-index (see the
+ * tooltip rule further down) only ever wins against that SAME
+ * button's own other content, not against sibling buttons. Without an
+ * explicit z-index here, siblings fall back to plain DOM/array order,
+ * which is exactly the bug this was written to fix: a later button
+ * in the tools array (e.g. polygon) would visually sit on top of an
+ * earlier one's (e.g. point's) tooltip whenever they happened to
+ * overlap along the arc. Giving every button the same explicit
+ * baseline, then boosting only the hovered one, makes the whole
+ * hovered button - tooltip included - float above every neighbor
+ * regardless of array position.
+ */
+.tool-wheel-button,
+.tool-wheel-center {
+  position: absolute;
+
+  width: 60px;
+  height: 60px;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  color: var(--wheel-ink);
+
+  cursor: pointer;
+
+  transition:
+    color 150ms ease,
+    filter 150ms ease,
+    box-shadow 120ms ease,
+    transform 120ms ease,
+    opacity 120ms ease;
+}
+
+
+/*
+ * No visible circle at all - transparent background, no border, no
+ * box-shadow (.tool-wheel-center below keeps its own chrome look, this
+ * only applies to the tool buttons themselves). Per Brody's own idea:
+ * the icons read as glyphs etched directly into the glass rather than
+ * sitting on a separate button surface - grey always (color:
+ * var(--wheel-ink), inherited from the shared rule above, and never
+ * overridden - a couple of accent-colored variants were tried, both
+ * reverted per Brody's own call), with the group's accent color only
+ * ever showing up as a glow behind the glyph on hover/when selected
+ * (see below) via filter: drop-shadow(), which - unlike box-shadow -
+ * follows the actual rendered shape of the icon rather than the
+ * button's own (now invisible) box, so the glow reads as coming from
+ * the glyph itself.
+ */
+.tool-wheel-button {
+  background: transparent;
+}
+
+
+/*
+ * Silver/chrome, not the pale neumorphic look every tool button
+ * keeps - same radial-gradient technique as TrackLocationButton.css's
+ * metallic disc, so "no tool selected" reads as the same kind of
+ * physical control rather than just another tool. The hand icon on
+ * top (HandIcon in GeometryToolWheel.jsx) stays the same dark grey as
+ * every other tool icon at all times, via .wheel-icon-hand - only the
+ * chrome button itself lights up (border + yellow glow, matching the
+ * trigger button's own idle accent) on hover, see below.
+ */
+.tool-wheel-center {
+  top: 50%;
+  left: 50%;
+
+  width: 74px;
+  height: 74px;
+
+  border: 2px solid #1c1e22;
+
+  background: radial-gradient(
+    circle at 32% 28%,
+    #ffffff 0%,
+    #e4e6ea 22%,
+    #b7bac0 50%,
+    #888c94 76%,
+    #6c707a 100%
+  );
+
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.65);
+}
+
+
+/*
+ * A draw-tool pair's second entry (e.g. Multipoint, sitting radially
+ * inward from Point - see DRAW_TOOLS' own comment in
+ * GeometryToolWheel.jsx) - smaller than every other tool button (38px
+ * vs. 60px, matching ALT_BUTTON_DIAMETER_PX there) so it reads as
+ * secondary to its own primary counterpart, and so its own angular
+ * footprint stays comfortably narrower than the gaps between
+ * neighboring draw-tool angles despite sitting at a smaller radius
+ * (the same physical size subtends a wider angle closer to center) -
+ * see ALT_BUTTON_DIAMETER_PX's own comment for the actual numbers
+ * behind that. Otherwise identical to every other tool button - same
+ * transparent/glyph-etched-in-glass look, same hover/active glow,
+ * same coming-soon dimming.
+ */
+.tool-wheel-alt-button {
+  width: 38px;
+  height: 38px;
+}
+
+
+/*
+ * Bigger than the trigger button's own copy of these icons (24px) -
+ * scoped to just this context (.tool-wheel-button, not .wheel-tool-
+ * icon generally) since there's no visible button circle behind them
+ * anymore to size against, so they can afford to be larger here
+ * specifically without that also affecting the closed trigger
+ * button's icon.
+ */
+.tool-wheel-button .wheel-tool-icon {
+  width: 30px;
+  height: 30px;
+
+  transition:
+    transform 150ms ease,
+    filter 150ms ease;
+}
+
+
+.tool-wheel-center .wheel-tool-icon {
+  width: 28px;
+  height: 28px;
+}
+
+
+/*
+ * No icon-size override here - unlike .tool-wheel-center (which needs
+ * its own smaller 28px), an alt button's icon stays the same 30px
+ * every other tool button's icon uses (inherited from
+ * .tool-wheel-button .wheel-tool-icon above, since every alt button
+ * carries that class too) - per Brody's own call, the icon glyph
+ * itself should read at the same scale as the rest of the wheel even
+ * though its own button is smaller (38px vs. 60px).
+ */
+
+
+@media (hover: hover) and (pointer: fine) {
+  /*
+   * The z-index boost still matters even with no visible box anymore
+   * - it's what lifts this button's ::after tooltip (trapped inside
+   * its own stacking context by the transform above) above every
+   * sibling button/icon, regardless of which one comes later in the
+   * tools array/DOM order. No transform/lift anymore - there's no
+   * raised surface left to lift, the icon lighting up and glowing is
+   * the entire hover effect now.
+   */
+  .tool-wheel-button:not(.coming-soon):hover {
+    /*
+     * Lifts this button's ::after tooltip (trapped inside its own
+     * stacking context by the transform on the shared button/center
+     * rule above) above every sibling button/icon, regardless of
+     * which one comes later in the tools array/DOM order.
+     */
+    z-index: 20;
+  }
+
+  /*
+   * filter/transform live on the icon specifically, not the button -
+   * both affect an element's ENTIRE rendered subtree as one group
+   * (background, descendants, generated content, all of it), the same
+   * way mask-image did for .tool-wheel-metal earlier. Put on the
+   * button itself, this glow was being applied to the button's own
+   * ::after tooltip too (a sibling of the icon, but still a descendant
+   * of the button), making the tooltip bubble glow (and move) along
+   * with the icon - not intended. Scoping both to .wheel-tool-icon
+   * means only the icon's own rendered shape picks them up.
+   */
+  .tool-wheel-button:not(.coming-soon):hover .wheel-tool-icon {
+    /*
+     * --wheel-pop-x/--wheel-pop-y (set inline per button in
+     * GeometryToolWheel.jsx) are a small fixed-pixel vector pointing
+     * straight outward along this specific button's own radial line -
+     * the same angle its position is computed from - so it pops
+     * directly away from the wheel's center rather than a shared
+     * direction every button uses regardless of where it sits, like
+     * it's lifting straight off the glass toward the viewer. scale()
+     * on top of that grows it slightly at the same time, reinforcing
+     * the "lifting toward the viewer" read.
+     */
+    transform:
+      translate(var(--wheel-pop-x, 0px), var(--wheel-pop-y, 0px))
+      scale(1.15);
+
+    filter:
+      drop-shadow(0 0 3px var(--wheel-button-accent))
+      drop-shadow(0 0 8px var(--wheel-button-accent));
+  }
+
+  /*
+   * Light green glow, matching the hand icon's own --wheel-idle-accent
+   * color, rather than TrackLocationButton.css's red "warning glow" -
+   * this button no longer signals a warning (that was the old red
+   * "not permitted" icon's framing), just "no tool selected."
+   */
+  .tool-wheel-center:hover {
+    z-index: 20;
+
+    border-color: var(--wheel-idle-accent);
+
+    box-shadow:
+      0 3px 6px rgba(0, 0, 0, 0.4),
+      inset 0 1px 1px rgba(255, 255, 255, 0.65),
+      0 0 16px 4px rgba(74, 222, 128, 0.6);
+
+    transform: translate(-50%, -50%) translateY(-2px);
+  }
+}
+
+
+/*
+ * Deliberately not inside the hover-only media query above - a
+ * selected tool needs to stay visibly lit on touch devices too, which
+ * never trigger :hover at all. No color change (the icon stays grey
+ * always, per Brody's own call - only the glow behind it signals
+ * hover/selection), and no pop/scale like the hover rule above -
+ * that's meant as a transient "you're hovering this" cue, not a
+ * permanently-offset resting position for whichever tool happens to
+ * be selected. Just the glow.
+ */
+.tool-wheel-button.active .wheel-tool-icon {
+  filter:
+    drop-shadow(0 0 3px var(--wheel-button-accent))
+    drop-shadow(0 0 8px var(--wheel-button-accent));
+}
+
+
+.tool-wheel-button.coming-soon {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+
+/* ─────────────────────────────
+   Icon parts (mirrors the values
+   used in GeometryToolbar.css)
+───────────────────────────── */
+
+/*
+ * Every tool-button icon part uses currentColor for fill/stroke,
+ * rather than the fixed --wheel-ink grey they used to - that's what
+ * lets a single change to the button's own `color` (grey at rest,
+ * its own group accent while hovered or active - see .tool-wheel-
+ * button/.tool-wheel-button.active above) recolor the whole glyph as
+ * one unit, with no per-icon-part overrides needed. Filled shapes
+ * (the point dot, line/polygon vertex nodes) used to fill with
+ * --wheel-surface-raised - matching the old opaque button background
+ * they sat on - which would have looked like a stray light patch
+ * against the now-transparent glass; currentColor for both fill and
+ * stroke instead makes them read as solid, single-color glyphs.
+ */
+.wheel-icon-fill {
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+
+.wheel-icon-line {
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+.wheel-icon-node {
+  fill: currentColor;
+
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+
+/*
+ * color-mix() keeps this a translucent accent tint (was a fixed 16%
+ * blue) that now follows currentColor too - grey-tinted at rest,
+ * shifting to whatever group accent the icon lights up to on hover/
+ * when active, same as everything else here.
+ */
+.wheel-icon-polygon {
+  fill: color-mix(in srgb, currentColor 16%, transparent);
+
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linejoin: round;
+}
+
+
+/*
+ * Hollow rings (fill: none), not solid dots - a solid currentColor
+ * fill made the plus/minus mark drawn on top in that exact same
+ * color effectively invisible (a same-color line sitting on an
+ * identically-colored disc), leaving midpoint and remove looking
+ * like the same plain dot with no way to tell them apart. As open
+ * rings, the plus/minus reads clearly against the transparent glass
+ * inside them - the classic "circled plus"/"circled minus" glyph
+ * pair.
+ */
+.wheel-icon-midpoint-circle,
+.wheel-icon-remove-circle {
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: 1.7;
+}
+
+
+.wheel-icon-midpoint-plus {
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+
+.wheel-icon-remove-line {
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+
+.wheel-icon-merge-arrow {
+  fill: currentColor;
+  stroke: none;
+}
+
+
+/*
+ * A light, translucent currentColor fill (not the heavier ~16% mix
+ * .wheel-icon-polygon's own fill uses) - IntersectionToolIcon stacks
+ * two circles that both use this class, so their overlap paints twice
+ * and reads visibly darker than either circle alone; a heavier single
+ * tint would make that overlap too dark/solid-looking against the
+ * rest of this file's outline-only icons.
+ */
+.wheel-icon-venn {
+  fill: color-mix(in srgb, currentColor 12%, transparent);
+  stroke: none;
+}
+
+
+/*
+ * Same dark grey as every other tool icon's own resting color
+ * (--wheel-ink) rather than a dedicated near-black - matches the rest
+ * of the wheel's glyphs. Rendered in two places (HandIcon in
+ * GeometryToolWheel.jsx) - the center "untool" button inside the open
+ * wheel, and the trigger button itself while no tool is selected -
+ * and stays this color always in both, even on hover: only the
+ * button underneath it (its own border/glow) lights up yellow, the
+ * hand glyph itself doesn't.
+ */
+.wheel-icon-hand {
+  fill: var(--wheel-ink);
+}
+
+
+/* ─────────────────────────────
+   Tooltips (hover only - the
+   wheel is itself a modal, so
+   there's no mobile fallback)
+───────────────────────────── */
+
+@media (hover: hover) and (pointer: fine) {
+  .tool-wheel-button[data-tooltip]:hover::after,
+  .tool-wheel-center[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+
+    position: absolute;
+
+    left: 50%;
+    bottom: calc(100% + 10px);
+
+    transform: translateX(-50%);
+
+    min-width: max-content;
+    max-width: 200px;
+
+    padding: 6px 8px;
+
+    background: rgba(45, 48, 52, 0.96);
+    color: white;
+
+    border-radius: 5px;
+
+    font-size: 0.7rem;
+    line-height: 1.2;
+    text-align: center;
+    white-space: normal;
+
+    pointer-events: none;
+
+    z-index: 2100;
+  }
+}
+
+
+/*
+ * No mobile-specific overrides anymore - the trigger button uses the
+ * same 120px top and 48px size on every breakpoint (matching
+ * TrackLocationButton.jsx, which doesn't shrink on mobile either,
+ * only its container's position does), and the open wheel's own size
+ * is now responsive via container query units (--wheel-size, in
+ * :root above) rather than a fixed px value plus a separate manual
+ * mobile scale-down, so it no longer needs a distinct mobile
+ * animation/keyframe either.
+ */

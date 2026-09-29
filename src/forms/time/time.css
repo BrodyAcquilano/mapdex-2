@@ -1,0 +1,77 @@
+/* ─────────────────────────────────────────────
+   DateTimeRangeArray formatting
+   ───────────────────────────────────────────── */
+
+.datetime-range-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6px;
+}
+
+.datetime-range-row{
+    margin-top: 8px;
+  margin-bottom: 4px;
+  width: 98%;
+}
+.modal .datetime-range-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+
+.datetime-range-field {
+  width: 100%;
+}
+
+.modal .datetime-range-field{
+    margin-top: 8px;       /* a little separation between categories */
+  margin-bottom: 4px;
+}
+
+.datetime-range-label {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+.datetime-range-value {
+    display: flex;
+  flex: 1;
+  font-size: 0.8rem;
+  font-weight: 500;
+  word-break: break-word; 
+  width: 98%;
+}
+
+
+
+.panel .datetime-range-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.modal .datetime-range-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+}
+
+@media (max-width: 800px) {
+  .modal .datetime-range-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .datetime-range-field {
+    width: 100%;
+  }
+
+  .datetime-range-label {
+    min-width: 0;
+    max-width: none;
+    width: auto;
+    font-size: 1rem;
+  }
+}

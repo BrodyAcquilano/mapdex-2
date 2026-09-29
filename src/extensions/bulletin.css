@@ -1,0 +1,151 @@
+.bulletin-modal-overlay {
+  width: 100vw;
+  max-width: 100vw;
+  left: 0;
+  right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.bulletin-modal {
+  max-width: 100%;
+}
+
+.bulletin-section-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.12);
+  margin: 0.35rem 0 0.9rem;
+}
+
+.bulletin-note {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #4b5563;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.bulletin-board-block {
+  margin-bottom: 20px;
+}
+
+.bulletin-board-section {
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.03);
+  margin-bottom: 30px;
+}
+
+.bulletin-board-section h4 {
+  margin: 0;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.9rem;
+  font-family: monospace;
+  font-weight: 600;
+  color: #4b5563;
+  background-color: rgba(0, 0, 0, 0.06);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.bulletin-message-list {
+  max-height: 320px;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.bulletin-message-item {
+  padding: 0.5rem 0.65rem;
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #4b5563;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s ease;
+}
+
+.bulletin-message-item:last-child {
+  border-bottom: none;
+}
+
+.bulletin-message-item-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.bulletin-message-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.bulletin-message-title {
+  display: block;
+  width: 100%;
+  font-weight: 700;
+  color: #4b5563;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bulletin-selected-note {
+  margin-top: -12px;
+  margin-bottom: 10px;
+}
+
+.bulletin-empty-message {
+  padding: 0.8rem;
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #8a8f98;
+  font-style: italic;
+}
+
+.bulletin-buttons-row {
+  margin-top: 0.8rem;
+}
+
+.bulletin-buttons-row + .bulletin-buttons-row {
+  margin-top: 1rem;
+}
+
+.bulletin-message-count {
+  margin-top: 0.65rem;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.78rem;
+  color: #4b5563;
+  font-family: monospace;
+  text-align: right;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .bulletin-message-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+@media (max-width: 600px) {
+  .bulletin-modal-overlay.centered-modal-overlay {
+    width: 100vw;
+    max-width: 100vw;
+  }
+
+  .bulletin-note {
+    font-size: 0.72rem;
+  }
+
+  .bulletin-message-list {
+    max-height: 220px;
+  }
+
+  .bulletin-message-title {
+    max-width: 100%;
+  }
+
+  .bulletin-selected-note {
+    margin-top: -8px;
+  }
+}

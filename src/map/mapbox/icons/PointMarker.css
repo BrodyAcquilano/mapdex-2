@@ -1,0 +1,21 @@
+/* src/map/mapbox/icons/PointMarker.css */
+
+.mapdex-mapbox-point-marker {
+  width: 20px;
+  height: 20px;
+
+  border: 3px solid;
+  border-radius: 50%;
+
+  box-sizing: border-box;
+
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.mapdex-mapbox-point-marker-move {
+  cursor: grab;
+}
+
+.mapdex-mapbox-point-marker-move:active {
+  cursor: grabbing;
+}

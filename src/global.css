@@ -1,0 +1,12 @@
+/* Used globally for resetting browser defaults, refreshing page, box sizing rules*/
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+:root {
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}

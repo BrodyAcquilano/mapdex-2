@@ -1,0 +1,162 @@
+.price-range-filter-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.price-range-filter-category-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+.price-range-filter-category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.price-range-filter-category-title {
+  margin: 0;
+}
+
+.price-range-filter-search-row {
+  display: flex;
+  width: 100%;
+}
+
+.price-range-filter-search-row .value-container {
+  flex: 1;
+  min-width: 0;
+}
+
+.price-range-filter-select-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.price-range-filter-select-row .value-container {
+  min-width: 0;
+}
+
+.price-range-filter-select {
+  flex: 1;
+}
+
+.price-range-filter-items {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.price-range-filter-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  line-height: 1.2;
+}
+
+.panel .price-range-filter-item-row {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.modal .price-range-filter-item-row {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.price-range-filter-bullet {
+  line-height: 1.2;
+}
+
+.panel .price-range-filter-bullet {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.modal .price-range-filter-bullet {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.price-range-filter-text {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.panel .price-range-filter-text {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.modal .price-range-filter-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.price-range-filter-action-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  font-weight: bold;
+  font-size: 0.95rem;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.price-range-filter-add-button {
+  color: #16a34a;
+}
+
+.price-range-filter-add-button:hover {
+  color: #15803d;
+}
+
+.price-range-filter-add-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.price-range-filter-delete-button {
+  color: red;
+}
+
+.price-range-filter-delete-button:hover {
+  color: darkred;
+}
+
+.price-range-filter-delete-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.price-range-label {
+  display: flex;
+  margin-bottom: 6px;
+}
+
+.panel .price-range-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.modal .price-range-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+}

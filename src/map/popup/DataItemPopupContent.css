@@ -1,0 +1,46 @@
+/* src/map/popup/DataItemPopupContent.css */
+
+.mapdex-popup-card {
+  position: relative;
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  padding: 10px 30px 10px 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+
+  font-size: 0.85rem;
+  min-width: 120px;
+  max-width: 260px;
+}
+
+.mapdex-popup-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #000000;
+  cursor: pointer;
+}
+
+.mapdex-popup-close:hover {
+  background-color: #eeeeee;
+}
+
+.mapdex-popup-header {
+  font-weight: bold;
+  margin-bottom: 4px;
+  padding-right: 18px;
+}
+
+.mapdex-popup-row {
+  line-height: 1.35;
+}

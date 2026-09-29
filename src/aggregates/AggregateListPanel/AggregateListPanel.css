@@ -1,0 +1,145 @@
+.aggregate-list-panel {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: rgb(239, 241, 241);
+  color: #4b5563;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 20px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 1);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * Sits where the Aggregates / Boundaries tab strip used to, now that
+ * boundaries have their own page, and keeps the same divider so the
+ * panel's proportions are unchanged. Matches
+ * .layer-list-panel-header and .boundary-list-panel-header.
+ */
+.aggregate-list-panel-header {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1f2937;
+  padding-bottom: 10px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.aggregate-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.aggregate-list-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 6px;
+  border-radius: 10px;
+}
+
+.aggregate-list-row.selected {
+  background-color: rgba(37, 99, 235, 0.12);
+}
+
+.aggregate-list-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  border: 2px solid;
+}
+
+.aggregate-list-name-button {
+  flex: 1;
+  text-align: left;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: #1f2937;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.aggregate-list-eye-button {
+  border: none;
+  background: transparent;
+  color: #4b5563;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.aggregate-list-eye-button:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.aggregate-list-opacity-popover {
+  position: absolute;
+  right: 4px;
+  top: 100%;
+  z-index: 5;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 10px 6px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aggregate-list-opacity-slider {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 6px;
+  height: 70px;
+  cursor: pointer;
+}
+
+.aggregate-list-empty-message {
+  font-size: 0.85rem;
+  color: #6b7280;
+  padding: 8px 6px;
+}
+
+.aggregate-list-panel-footer {
+  padding-top: 10px;
+  margin-top: 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aggregate-list-export-button {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1f2937;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.aggregate-list-export-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}

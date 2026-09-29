@@ -1,0 +1,237 @@
+/* system/voice/VoiceButton.css */
+
+.voice-button-container {
+  position: fixed;
+  z-index: 1000;
+}
+
+/*
+ * Neumorphic raised-disc styling matching the map editor's tool-menu
+ * trigger button (src/map/tools/GeometryToolWheel.css's
+ * .tool-wheel-trigger) - same shape of shadow (dark edge only at
+ * rest, a white glow that switches on with the darker edge
+ * intensifying on hover) and the same "always-on colored ring, idle
+ * vs. active use different colors" pattern, just blue for idle/ready
+ * here instead of that button's green, and red for actively listening
+ * instead of a selected tool's own color. Defined locally rather than
+ * reusing GeometryToolWheel.css's --wheel-* custom properties: this
+ * button renders on every page (auth, account, viewer, editor,
+ * projects, community, schema), including ones where that stylesheet
+ * is never loaded at all, so it needs its own self-contained values.
+ */
+.voice-button {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f4f6f8;
+  color: #3f454b;
+
+  cursor: pointer;
+
+  box-shadow:
+    5px 5px 11px rgba(163, 170, 179, 0.55),
+    0 0 0 1px rgba(120, 126, 133, 0.3),
+    0 0 0 3px #3b82f6;
+
+  transition:
+    box-shadow 160ms ease,
+    transform 140ms ease;
+}
+
+.voice-button:hover {
+  transform: translateY(-1px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .voice-button:hover {
+    box-shadow:
+      8px 8px 18px rgba(163, 170, 179, 0.55),
+      0 0 0 1.5px rgba(90, 96, 103, 0.45),
+      0 0 20px 4px rgba(255, 255, 255, 0.9),
+      0 0 0 3px #3b82f6;
+  }
+}
+
+.voice-button:active {
+  transform: scale(0.95);
+}
+
+.voice-button:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 3px;
+}
+
+/*
+ * Actively listening: presses the disc inward (rather than the hover
+ * treatment's raised glow) so it reads as "engaged" rather than just
+ * "hovered," and pulses the same blue used at rest instead of
+ * switching to a different color - a slow, smooth glow pulse, same
+ * timing as TrackLocationButton's own pulse, not a hard strobe (well
+ * under the ~3-flashes-per-second guideline).
+ */
+.voice-button.listening {
+  animation: voice-listening-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes voice-listening-pulse {
+  0%,
+  100% {
+    box-shadow:
+      inset 3px 3px 7px rgba(163, 170, 179, 0.55),
+      inset -3px -3px 6px rgba(255, 255, 255, 0.9),
+      0 0 10px 2px rgba(59, 130, 246, 0.5),
+      0 0 0 3px #3b82f6;
+  }
+
+  50% {
+    box-shadow:
+      inset 3px 3px 7px rgba(163, 170, 179, 0.55),
+      inset -3px -3px 6px rgba(255, 255, 255, 0.9),
+      0 0 22px 6px rgba(59, 130, 246, 0.95),
+      0 0 0 3px #60a5fa;
+  }
+}
+
+.voice-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.voice-icon-figure {
+  fill: none;
+  stroke: #3b82f6;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.voice-icon-wave {
+  fill: none;
+  stroke: #3b82f6;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.voice-icon-wave-1 {
+  opacity: 0.95;
+}
+
+.voice-icon-wave-2 {
+  opacity: 0.7;
+}
+
+.voice-icon-wave-3 {
+  opacity: 0.45;
+}
+
+/* AUTH / PUBLIC PAGES */
+
+.voice-auth {
+  bottom: 20px;
+  right: 30px;
+}
+
+/* ACCOUNT */
+
+.voice-account {
+  bottom: 30px;
+  right: 30px;
+}
+
+/* VIEWER */
+
+.voice-viewer {
+   bottom: 110px;
+  right: 35px;
+}
+
+/* EDITOR */
+
+.voice-editor {
+  bottom: 110px;
+  right: 35px;
+}
+
+.voice-analysis {
+  bottom: 30px;
+  right: 30px;
+}
+
+.voice-projects {
+    bottom: 30px;
+  right: 30px;
+}
+
+.voice-community {
+    bottom: 30px;
+  right: 30px;
+}
+
+.voice-schema {
+   bottom: 110px;
+  right: 35px;
+}
+
+@media (max-width: 700px) {
+  .voice-auth {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+    right: 20px;
+  }
+
+  .voice-account {
+     bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+    right: 20px;
+  }
+
+  .voice-viewer {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 25px);
+    left: 50vw;
+    right: auto;
+    transform: translateX(45px);
+  }
+
+  .voice-editor {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 25px);
+    left: 50vw;
+    right: auto;
+    transform: translateX(45px);
+  }
+
+    .voice-analysis {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 25px);
+    left: 50vw;
+    right: auto;
+    transform: translateX(45px);
+  }
+
+  .voice-projects {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 25px);
+    right: 20px;
+  }
+
+    .voice-community {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 25px);
+    right: 20px;
+  }
+
+   .voice-schema {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 90px);
+    right: 20px;
+  }
+
+  .voice-button-container.voice-viewer.with-bottom-ui,
+  .voice-button-container.voice-editor.with-bottom-ui {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 135px);
+  }
+
+  .voice-button-container.voice-projects.with-bottom-ui {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 160px);
+  }
+}

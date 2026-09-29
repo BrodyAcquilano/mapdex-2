@@ -1,0 +1,63 @@
+/* src/map/mapbox/icons/UserIcon.css */
+
+/*
+ * Mapbox transforms this element directly (translate3d for its
+ * projected screen position, plus translate(-50%, -50%) for the
+ * "center" anchor - see mapbox-gl.css's .mapboxgl-marker rule). That
+ * -50% is a percentage of *this* element's own box, so it needs an
+ * explicit size here rather than relying on its block-level default
+ * (width: auto, which stretches to fill the available width) -
+ * without it, the anchor math is computed against the wrong width
+ * and the marker renders far from its actual coordinate. Every other
+ * custom marker element in src/map/mapbox/icons/ sets this on its
+ * outermost element for the same reason (see PointMarker.css,
+ * VertexMarker.css).
+ */
+.pulse-user-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.pulse-marker {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+/*
+ * Selected-state emphasis for PresenceLayer.jsx's own use of this same
+ * marker - mirrors the GL circle-layer's former selected-size bump
+ * (8px -> 10px radius, a 1.25x scale) with a plain CSS transform on the
+ * svg only, leaving the pulse-ring's own animation/sizing untouched.
+ */
+.pulse-user-icon-selected .pulse-marker svg {
+  transform: scale(1.25);
+}
+
+.pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: mapbox-user-pulse 2s infinite ease-in-out;
+  z-index: 0;
+}
+
+@keyframes mapbox-user-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.9;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}

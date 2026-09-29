@@ -1,0 +1,36 @@
+.panel .tag-list-info-block {
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.panel .tag-list-info-list-wrap {
+  width: 100%;
+}
+
+.panel .tag-list-info-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.panel .tag-list-info-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 0.25rem;
+}
+
+.panel .tag-list-info-bullet {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4b5563;
+  line-height: 1.2;
+}
+
+.panel .tag-list-info-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4b5563;
+  word-break: break-word;
+  line-height: 1.2;
+}

@@ -1,0 +1,23 @@
+.finish-drawing-button {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 7px 12px;
+
+  border: 1px solid #aaa;
+  border-radius: 8px;
+
+  background: rgba(
+    255,
+    255,
+    255,
+    0.95
+  );
+
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  cursor: pointer;
+}

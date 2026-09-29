@@ -1,0 +1,49 @@
+/* src/map/mapbox/icons/VertexMarker.css */
+
+.mapdex-mapbox-vertex-marker-hitbox {
+  width: 18px;
+  height: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mapdex-mapbox-vertex-marker {
+  width: 11px;
+  height: 11px;
+
+  background: #f1f5f9;
+
+  border: 2px solid #2563eb;
+  border-radius: 50%;
+
+  box-sizing: border-box;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.mapdex-mapbox-vertex-marker-start {
+  border-width: 3px;
+}
+
+.mapdex-mapbox-vertex-marker-move-hitbox {
+  cursor: grab;
+}
+
+.mapdex-mapbox-vertex-marker-move-hitbox:active {
+  cursor: grabbing;
+}
+
+/* Remove point / add midpoint tools: vertices are clickable, not draggable */
+.mapdex-mapbox-vertex-marker-clickable-hitbox {
+  cursor: pointer;
+}
+
+/* Add midpoint tool: the first vertex picked for the two-click gesture */
+.mapdex-mapbox-vertex-marker-primary-selected {
+  width: 16px;
+  height: 16px;
+
+  border-width: 1px;
+}

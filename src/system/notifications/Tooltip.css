@@ -1,0 +1,102 @@
+.system-tooltip {
+  position: absolute;
+  background: #222;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10000;
+
+  transform: translateX(25%);
+}
+
+/* positions relative to parent */
+
+.tooltip-top-60 {
+  bottom: 60px;
+  right: 0;
+}
+
+.tooltip-top-60-center {
+  bottom: 60px;
+  right: 0;
+    transform: translateX(35%);
+}
+
+.tooltip-bottom-60 {
+  top: 60px;
+  right: 0;
+}
+
+/*
+ * For a centered button (left:50%/translateX(-50%) on its own
+ * container, same as TrackLocationButton's) that has room underneath
+ * rather than above it. Used by GeometryToolWheel.jsx's trigger
+ * button.
+ *
+ * Deliberately NOT modeled on tooltip-top-60-center's right:0 +
+ * translateX(35%) approach: that combination only centers correctly
+ * for one specific tooltip width (right:0 flushes the tooltip's right
+ * edge to the container's right edge, then the translateX shifts it
+ * back left by a FIXED PERCENTAGE OF ITS OWN WIDTH - the actual pixel
+ * correction needed to truly center scales with the tooltip's width,
+ * so a fixed percentage only lands exactly centered for whichever
+ * width it was tuned against, which for tooltip-top-60-center was
+ * evidently TrackLocationButton's own much longer "Toggle Track
+ * Location" label; a much shorter label like "Tool Menu" undershoots
+ * that correction and sits visibly off-center to the right). left:50%
+ * + translateX(-50%) is the standard width-independent centering
+ * technique instead - it centers correctly regardless of the
+ * tooltip's own rendered width, so it doesn't need retuning per label.
+ */
+.tooltip-bottom-60-center {
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip-left-60 {
+  right: 60px;
+  top: 0;
+}
+
+.tooltip-right-60 {
+  left: 60px;
+  top: 0;
+}
+
+.tooltip-top-50 {
+  bottom: 50px;
+  right: 0;
+}
+
+.tooltip-bottom-50 {
+  top: 50px;
+  right: 0;
+}
+
+.tooltip-left-50 {
+  right: 50px;
+  top: 0;
+}
+
+.tooltip-right-50{
+  left: 50px;
+  top: 0;
+}
+
+.tooltip-top-left-50-50 {
+  right: 50px;
+  bottom: 50px;
+}
+
+.tooltip-top-left-60-60 {
+  right: 60px;
+  bottom: 60px;
+}
+

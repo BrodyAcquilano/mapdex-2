@@ -1,0 +1,43 @@
+.aggregates-tool-menu {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(239, 241, 241, 0.95);
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 999px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  padding: 8px;
+  z-index: 500;
+}
+
+.aggregates-tool-menu-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.aggregates-tool-menu-button:hover {
+  background-color: rgba(37, 99, 235, 0.1);
+}
+
+.aggregates-tool-menu-button.active {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.aggregates-tool-menu-button-locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

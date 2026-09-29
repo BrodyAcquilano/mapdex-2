@@ -1,0 +1,99 @@
+/* ─────────────────────────────────────────────
+   Hours formatting
+   ───────────────────────────────────────────── */
+
+.hours-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6px;
+}
+
+.hours-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0;
+  font-size: 0.7rem;
+  margin-bottom: 40px;
+}
+
+.modal .hours-table {
+  color: white;
+}
+
+.panel .hours-table {
+  color: #4b5563;
+}
+
+.hours-table th:nth-child(1) {
+  padding: 6px 6px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.7rem;
+}
+
+.hours-table th:not(:nth-child(1)) {
+  padding: 6px 6px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.7rem;
+}
+
+.hours-table td:nth-child(1) {
+  padding: 3px 6px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hours-table td:not(:nth-child(1)) {
+  padding: 3px 6px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hours-table td:first-child[rowspan] {
+  vertical-align: top;
+  padding-top: 3px;
+}
+
+.closed-cell {
+  text-align: center;
+  font-style: italic;
+  padding: 6px 0;
+}
+
+.hours-action-cell {
+  white-space: nowrap;
+}
+
+.hours-action-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.hours-add-button {
+  color: #16a34a;
+}
+
+.hours-add-button:hover {
+  color: #15803d;
+}
+
+.hours-delete-button {
+  color: red;
+}
+
+.hours-delete-button:hover {
+  color: darkred;
+}
+
+.hours-table select {
+  width: 100%;
+  min-width: 0;
+  font-size: 0.72rem;
+}

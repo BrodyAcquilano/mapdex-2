@@ -1,0 +1,67 @@
+.layer-button-container {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 25px);
+  right: 120px;
+  z-index: 1000;
+}
+
+.layer-button {
+  background-color: white;
+  padding: 10px 10px;
+  border: 2px solid #000000;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border 0.2s ease,
+    padding 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.layer-button.active {
+  background-color: #c9c6c6;
+}
+
+.layer-icon {
+  color: #2563eb;
+  width: 21px;
+  height: 21px;
+}
+
+.layer-arrow-icon {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  color: #111;
+}
+
+.layer-button.active .layer-arrow-icon {
+  background-color: #c9c6c6;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .layer-button:hover {
+    border: 5px solid #000000;
+    padding: 7px 7px;
+  }
+}
+
+@media (max-width: 768px) {
+  .layer-button-container {
+    right: 12px;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 100px);
+  }
+
+  .layer-button-container.with-bottom-ui {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 140px);
+  }
+}

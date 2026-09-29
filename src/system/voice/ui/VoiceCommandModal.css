@@ -1,0 +1,126 @@
+.voice-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.voice-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: white;
+  padding: 30px 30px 40px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 420px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  z-index: 10001;
+}
+
+.voice-modal h2 {
+  margin: 0;
+  padding-right: 28px;
+}
+
+.voice-command-groups {
+  margin: 0;
+}
+
+.voice-command-section {
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+
+
+.voice-command-section-title {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.voice-command-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.voice-command-item {
+  padding: 6px 0;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.voice-command-item:last-child {
+  border-bottom: none;
+}
+
+.voice-language-section {
+  margin: 0;
+}
+
+.voice-language-section label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.voice-language-select {
+  width: 100%;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.voice-language-note {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #555;
+}
+
+.voice-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: none;
+  background: none;
+  font-size: 22px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.voice-modal-close:hover {
+  opacity: 0.6;
+}
+
+.voice-modal-bottom-close {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: #222;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.voice-modal-bottom-close:hover {
+  background: #444;
+}
+
+.voice-modal-close:focus-visible,
+.voice-modal-bottom-close:focus-visible,
+.voice-language-select:focus-visible {
+  outline: 3px solid #000000;
+  outline-offset: 3px;
+}

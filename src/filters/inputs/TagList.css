@@ -1,0 +1,98 @@
+/* ─────────────────────────────────────────────
+   Tag list filter formatting
+   ───────────────────────────────────────────── */
+
+.tag-filter-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.tag-filter-search-row {
+  display: flex;
+  width: 100%;
+}
+
+.tag-filter-search-row .value-container {
+  flex: 1;
+  min-width: 0;
+}
+
+.tag-filter-select-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag-filter-select-row .value-container {
+  min-width: 0;
+}
+
+.tag-filter-select {
+  flex: 1;
+}
+
+.tag-filter-items {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tag-filter-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #4b5563;
+  line-height: 1.2;
+}
+
+.tag-filter-action-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  font-weight: bold;
+  font-size: 0.95rem;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.tag-filter-add-button {
+  color: #16a34a;
+}
+
+.tag-filter-add-button:hover {
+  color: #15803d;
+}
+
+.tag-filter-add-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.tag-filter-delete-button {
+  color: red;
+}
+
+.tag-filter-delete-button:hover {
+  color: darkred;
+}
+
+.tag-filter-bullet {
+  line-height: 1.2;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.tag-filter-text {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #4b5563;
+}

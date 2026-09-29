@@ -1,0 +1,83 @@
+.analysis-legend {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 210px;
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  z-index: 1006;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+}
+
+.analysis-legend:active {
+  cursor: grabbing;
+}
+
+.analysis-legend-handle {
+  width: 100%;
+  text-align: left;
+  background: #f4f4f4;
+  color: #222;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 10px 12px;
+  font-weight: 700;
+  cursor: inherit;
+}
+
+.analysis-legend-handle:active {
+  cursor: inherit;
+}
+
+.analysis-legend-list {
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.analysis-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #1f2937;
+  font-size: 0.95rem;
+}
+
+.analysis-legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 2px solid rgba(0, 0, 0, 0.18);
+  flex: 0 0 auto;
+}
+
+
+@media (max-width: 768px) {
+  .analysis-legend {
+    width: 150px;
+    z-index: 1000;
+  }
+
+  .analysis-legend-mobile-fixed {
+    position: fixed;
+    top: 230px;
+    
+    right: 13px;
+    left: auto;
+    transform: translateY(-50%);
+    z-index: 1000;
+    width: 150px;
+  }
+
+  .analysis-legend-handle {
+    cursor: default;
+  }
+
+
+}

@@ -1,0 +1,99 @@
+/* src/map/toggle/MapStyleToggle.css */
+
+.map-style-toggle-container {
+  position: absolute;
+  /* Vertically centered with the project title: its own 13.5px top,
+     plus half the difference between its ~47px height and the
+     toggle's own 24px height (set by .map-style-toggle-track). */
+  top: 25px;
+  /*
+   * 26px, not a plain 24px like the toggles below it
+   * (MapboxTerrainToggles.css) - this button's own "2D"/"3D" text
+   * labels are narrower (~88px total) than the terrain toggles' row
+   * of icons (the Mountain icon widens the terrain row to ~90px), and
+   * MapboxTerrainToggles.css's own container stretches BOTH its rows
+   * to that wider row's own width - so at an equal `right`, this
+   * narrower button would hang 2px short of lining up with the
+   * toggles below it. The extra 2px here closes that gap so every
+   * track/icon in the stack lines up on the left, not just the right.
+   */
+  right: 26px;
+  z-index: 1000;
+}
+
+.map-style-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.map-style-toggle-label {
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #328a99;
+  letter-spacing: -0.02em;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.map-style-toggle-track {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  transition: box-shadow 0.2s ease;
+}
+
+/* Center divider line on the track */
+.map-style-toggle-track::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  width: 1px;
+  height: calc(100% - 6px);
+  background-color: rgba(0, 0, 0, 0.25);
+  transform: translateX(-50%);
+}
+
+.map-style-toggle-knob {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 18px;
+  height: 18px;
+  background-color: #ffffff;
+  border: 3px solid #cf2121;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  transition: left 0.2s ease, border-color 0.2s ease;
+}
+
+.map-style-toggle.is-3d .map-style-toggle-knob {
+  left: calc(100% - 18px - 1px);
+  border-color: #1fae59;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .map-style-toggle:hover .map-style-toggle-track {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  }
+}
+
+@media (max-width: 768px) {
+  .map-style-toggle-container {
+    /* Vertically centered with the settings gear button: its own
+       70px top, plus half the difference between its ~41px height
+       and the toggle's own 24px height. */
+    top: 78.5px;
+    /* Same +2px left-alignment adjustment as the desktop rule above. */
+    right: 14px;
+  }
+}

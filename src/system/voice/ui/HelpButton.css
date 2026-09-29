@@ -1,0 +1,137 @@
+/* system/voice/HelpButton.css */
+
+.help-button-container {
+  position: fixed;
+  z-index: 1000;
+}
+
+.voice-help-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #333;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.voice-help-button:hover {
+  background: #555;
+  transform: scale(1.05);
+}
+
+.voice-help-button:active {
+  transform: scale(0.95);
+}
+
+.voice-help-button:focus-visible {
+  outline: 3px solid #000000;
+  outline-offset: 3px;
+}
+
+/* AUTH / PUBLIC */
+
+.help-auth {
+  bottom: 20px;
+  right: 95px;
+}
+
+/* ACCOUNT */
+
+.help-account {
+  bottom: 30px;
+  right: 100px;
+}
+
+/* VIEWER */
+
+.help-viewer {
+    bottom: 85px;
+  right: 100px;
+}
+
+/* EDITOR */
+
+.help-editor {
+  bottom: 85px;
+  right: 100px;
+}
+
+.help-analysis {
+   bottom: 30px;
+  right: 100px;
+}
+
+.help-projects {
+    bottom: 30px;
+  right: 100px;
+}
+
+.help-community {
+    bottom: 30px;
+  right: 100px;
+}
+
+.help-schema {
+    bottom: 85px;
+  right: 100px;
+}
+
+@media (max-width: 700px) {
+  .help-auth {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+    right: 85px;
+  }
+
+  .help-account {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+    right: 85px;
+  }
+
+  .help-viewer {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 30px);
+    left: 50vw;
+    right: auto;
+    transform: translateX(-80px);
+  }
+
+  .help-editor {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 30px);
+    left: 50vw;
+    right: auto;
+    transform: translateX(-80px);
+  }
+
+    .help-analysis {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 30px);
+    left: 50vw;
+    right: auto;
+    transform: translateX(-80px);
+  }
+
+  .help-projects {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 30px);
+    right: 85px;
+  }
+
+   .help-community {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 30px);
+    right: 85px;
+  }
+
+   .help-schema {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 90px);
+    right: 85px;
+  }
+
+  .help-button-container.help-viewer.with-bottom-ui,
+  .help-button-container.help-editor.with-bottom-ui {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 140px);
+  }
+
+  .help-button-container.help-projects.with-bottom-ui {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 160px);
+  }
+}

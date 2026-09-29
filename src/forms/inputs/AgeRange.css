@@ -1,0 +1,56 @@
+/* ─────────────────────────────────────────────
+   AgeRange formatting
+   ───────────────────────────────────────────── */
+
+.age-range-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6px;
+}
+
+.age-range-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  width: 98%;
+}
+
+
+.age-range-field {
+  flex: 1;
+}
+
+.age-range-label {
+  display: flex;
+  margin-bottom: 6px;
+}
+
+.panel .age-range-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.modal .age-range-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+}
+
+@media (max-width: 800px) {
+  .age-range-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .age-range-field {
+    width: 100%;
+  }
+
+  .age-range-label {
+    min-width: 0;
+    max-width: none;
+    width: auto;
+    font-size: 1rem;
+  }
+}

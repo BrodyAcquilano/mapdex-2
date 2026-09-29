@@ -1,0 +1,59 @@
+.drawing-action-buttons {
+  position: absolute;
+
+  top: 188px;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  /*
+   * Below GeometryToolWheel.css's own .tool-wheel-wrapper (900), not
+   * the app's common "1000" tier most other floating map chrome uses -
+   * per Brody's own call. While a draft geometry is in progress, this
+   * row sits directly under the wheel's trigger button, and its own
+   * hover tooltip (system/notifications/Tooltip.jsx, a plain
+   * z-index:10000 child - not portaled) only ever gets compared
+   * against siblings INSIDE .tool-wheel-wrapper's own stacking context
+   * (created by that wrapper's own position+z-index), never against
+   * this totally separate container - so at an equal or higher
+   * z-index here, this row's later DOM position was winning ties and
+   * covering that tooltip outright, no matter how high the tooltip's
+   * own z-index was set. Sitting below 900 here settles it directly.
+   */
+  z-index: 850;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+}
+
+/*
+ * The old GeometryToolbar popped a second row out below the main bar
+ * while an edit tool was active, so this pushed these buttons further
+ * down to avoid overlapping it (see .edit-toolbar-open in
+ * Editor.jsx/DrawingActionButtons.jsx). GeometryToolWheel.jsx replaced
+ * that with a single always-one-row trigger button plus a modal
+ * overlay, so there's no second row to dodge anymore - removed rather
+ * than left as a dead rule pointing at UI that no longer exists.
+ */
+
+.undo-drawing-button {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 7px 12px;
+
+  border: 1px solid #aaa;
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  cursor: pointer;
+}

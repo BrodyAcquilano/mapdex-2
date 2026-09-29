@@ -1,0 +1,38 @@
+/*
+ * Back/forward pair for the multi-step Add Layer workflow - mirrors
+ * the Aggregates page's own .aggregates-phase-buttons-row, which now
+ * has the same Back control on its own first step.
+ */
+.layers-phase-buttons-row {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+
+  display: flex;
+  gap: 10px;
+}
+
+.layers-phase-row-button {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 999px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.layers-phase-row-button.primary {
+  color: #ffffff;
+  background-color: #2563eb;
+}
+
+.layers-phase-row-button.secondary {
+  color: #1f2937;
+  background-color: rgba(239, 241, 241, 0.95);
+}
+

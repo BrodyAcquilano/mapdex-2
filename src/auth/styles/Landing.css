@@ -1,0 +1,86 @@
+.landing-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgb(230, 240, 246), rgb(210, 228, 238));
+  font-family: sans-serif;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.landing-title {
+  font-size: 3rem;
+  margin: 0;
+  color: #328a99;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.landing-subtitle {
+  margin-top: 40px;
+  font-size: 1.1rem;
+  color: #4b5563;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landing-actions {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landing-btn {
+  width: 100%;
+  padding: 12px 0;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: all 0.2s ease;
+}
+
+.landing-btn:focus-visible {
+  outline: 3px solid #328a99;
+  outline-offset: 3px;
+}
+
+/* Primary */
+.landing-btn.primary {
+  background-color: #328a99;
+  color: white;
+  border: 1px solid #3d7b78;
+}
+
+/* Secondary */
+.landing-btn.secondary {
+  background-color: transparent;
+  color: #328a99;
+  border: 1px solid #328a99;
+}
+
+/* Hover only on hover-capable devices */
+@media (hover: hover) and (pointer: fine) {
+  .landing-btn.primary:hover {
+    background-color: #2c7c88;
+  }
+
+  .landing-btn.secondary:hover {
+    background-color: rgba(50, 138, 153, 0.08);
+  }
+}
+
+/* Active press feedback */
+.landing-btn:active {
+  transform: scale(0.98);
+}

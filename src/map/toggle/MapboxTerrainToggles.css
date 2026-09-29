@@ -1,0 +1,110 @@
+/* src/map/toggle/MapboxTerrainToggles.css */
+
+/*
+ * Sits right underneath MapStyleToggle.jsx's own 2D/3D toggle (top:
+ * 25px, ~24px tall, so its bottom edge lands at ~49px) - there's no
+ * longer a geometry toolbar competing for room near the top of the
+ * screen, so these no longer need to stay vertically centered on the
+ * whole map panel (the old top: 50% below). The 14px gap here matches
+ * the same 14px gap already used below, between the day/night and
+ * terrain toggles themselves - one consistent gap running down the
+ * whole stack, not two different amounts.
+ */
+.mapbox-terrain-toggles-container {
+  position: absolute;
+  top: 63px;
+  right: 24px;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mapbox-terrain-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mapbox-terrain-toggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.mapbox-terrain-toggle-icon {
+  width: 16px;
+  height: 16px;
+  color: #328a99;
+  filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.8));
+}
+
+.mapbox-terrain-toggle-icon-static {
+  width: 18px;
+  height: 18px;
+}
+
+.mapbox-terrain-toggle-track {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  transition: box-shadow 0.2s ease;
+}
+
+.mapbox-terrain-toggle-track::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  width: 1px;
+  height: calc(100% - 6px);
+  background-color: rgba(0, 0, 0, 0.25);
+  transform: translateX(-50%);
+}
+
+.mapbox-terrain-toggle-knob {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 18px;
+  height: 18px;
+  background-color: #ffffff;
+  border: 3px solid #cf2121;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  transition: left 0.2s ease, border-color 0.2s ease;
+}
+
+.mapbox-terrain-toggle.is-on .mapbox-terrain-toggle-knob {
+  left: calc(100% - 18px - 1px);
+  border-color: #1fae59;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mapbox-terrain-toggle:hover .mapbox-terrain-toggle-track {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/*
+ * Same idea as the desktop rule above, using MapStyleToggle.css's own
+ * mobile position instead (top: 78.5px, ~24px tall, bottom edge
+ * ~102.5px), and this container's own mobile gap (10px, same as
+ * between the day/night and terrain toggles below).
+ */
+@media (max-width: 768px) {
+  .mapbox-terrain-toggles-container {
+    top: 112.5px;
+    right: 12px;
+    gap: 10px;
+  }
+}

@@ -1,0 +1,39 @@
+.panel textarea,
+.modal textarea {
+  width: 100%;
+  padding: 3px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: 0.7rem;
+  resize: vertical;
+  font-family: inherit;
+  border: 2px solid #ffffff;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+
+.panel textarea{
+ background-color: rgb(57, 85, 94);
+}
+
+.modal textarea{
+background-color: rgb(92, 154, 164);
+}
+
+.panel textarea::placeholder,
+.modal textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.notes-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.notes-input textarea {
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  min-height: 200px;
+}

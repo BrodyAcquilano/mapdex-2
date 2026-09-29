@@ -1,0 +1,48 @@
+/* src/workspace/community/renderUserProfile.css */
+
+.rup-toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.rup-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.rup-user-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rup-user-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rup-remove-x {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: var(--c-danger);
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .rup-remove-x:hover {
+    color: var(--c-danger-hover);
+  }
+}

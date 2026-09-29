@@ -1,0 +1,147 @@
+/* ─────────────────────────────
+   Shell
+   ───────────────────────────── */
+
+.mini-gallery-shell {
+  position: fixed;
+  left: 0px;
+  top: 60px;
+  z-index: 3000;
+  pointer-events: auto;
+}
+
+.mini-gallery-shell.hidden {
+  display: none;
+}
+
+.mini-gallery-shell.open {
+  display: block;
+}
+
+/* backup mobile kill switch */
+@media (max-width: 768px) {
+  .mini-gallery-shell {
+    display: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .mini-gallery-shell {
+    display: none;
+  }
+}
+
+
+/* ─────────────────────────────
+   Close button
+   ───────────────────────────── */
+
+.mini-gallery-close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+
+  border: 1px solid black;
+  background: white;
+  color: black;
+
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+
+  z-index: 1;
+}
+
+/* ─────────────────────────────
+   Polaroid
+   ───────────────────────────── */
+
+.mini-gallery-polaroid {
+  width: 270px;
+  box-sizing: border-box;
+
+  background: rgb(0, 0, 0);
+  border: 2px solid rgb(255, 255, 255);
+
+  padding: 15px 15px 22px;
+  border-radius: 2px;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  cursor: grab;
+
+  /* IMPORTANT */
+  user-select: none;
+}
+
+.mini-gallery-polaroid:active {
+  cursor: grabbing;
+}
+
+.mini-gallery-polaroid * {
+  user-select: none;
+}
+
+/* ─────────────────────────────
+   Image
+   ───────────────────────────── */
+
+.mini-gallery-image {
+  width: 240px;
+  height: 160px;
+
+  border: 2px solid rgb(255, 255, 255);
+  background: #f2f2f2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #444;
+
+  text-align: center;
+}
+
+.mini-gallery-image {
+  cursor: pointer;
+}
+
+
+/* ─────────────────────────────
+   Title
+   ───────────────────────────── */
+
+.title-box {
+  width: 100%;
+  margin-top: 14px;
+
+  padding: 6px 8px;
+  box-sizing: border-box;
+
+  background-color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+.title {
+  display: block;
+  width: 100%;
+
+  color: rgb(255, 255, 255);
+
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+
+  line-height: 1.3;
+}

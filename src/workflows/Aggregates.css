@@ -1,0 +1,31 @@
+.aggregates-phase-buttons-row {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  display: flex;
+  gap: 10px;
+}
+
+.aggregates-phase-row-button {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 999px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.aggregates-phase-row-button.primary {
+  color: #ffffff;
+  background-color: #2563eb;
+}
+
+.aggregates-phase-row-button.secondary {
+  color: #1f2937;
+  background-color: #ffffff;
+}
+

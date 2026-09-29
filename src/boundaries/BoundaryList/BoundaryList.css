@@ -1,0 +1,89 @@
+.boundary-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.boundary-list-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 6px;
+  border-radius: 10px;
+}
+
+.boundary-list-row.selected {
+  background-color: rgba(37, 99, 235, 0.12);
+}
+
+.boundary-list-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  border: 2px solid;
+}
+
+.boundary-list-name-button {
+  flex: 1;
+  text-align: left;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: #1f2937;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.boundary-list-eye-button {
+  border: none;
+  background: transparent;
+  color: #4b5563;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.boundary-list-eye-button:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.boundary-list-opacity-popover {
+  position: absolute;
+  right: 4px;
+  top: 100%;
+  z-index: 5;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 10px 6px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boundary-list-opacity-slider {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 6px;
+  height: 70px;
+  cursor: pointer;
+}
+
+.boundary-list-empty-message {
+  font-size: 0.85rem;
+  color: #6b7280;
+  padding: 8px 6px;
+}
+

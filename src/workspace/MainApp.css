@@ -1,0 +1,152 @@
+/* Used in: App.jsx */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: 0;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .app-container {
+    height:calc(100dvh - 80px);
+  }
+}
+
+.main-layer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.left-side-toggle {
+  position: absolute;
+  top: 35px;
+  left: 350px;
+  font-size: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  z-index: 1002;
+  transition: left 0.4s ease, right 0.4s ease;
+}
+
+.left-side-toggle.left-collapsed-toggle {
+  left: 30px;
+}
+
+
+
+/* Panel layout wrapper */
+.left-overlay-panel {
+  position: absolute;
+  top:  0;
+  bottom:  env(safe-area-inset-bottom, 0px);
+  width: 350px;
+  max-width: 350px;
+  background-color: rgba(255, 255, 255, 0);
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 1001;
+  transition: transform 0.3s ease;
+  direction: rtl;
+}
+
+.left-overlay-panel * {
+  direction: ltr;
+}
+
+/* Position of filter panel */
+.left-panel-wrapper {
+  left: 0;
+}
+
+/* Collapsed state */
+.left-panel-wrapper.left-collapsed {
+  transform: translateX(-100%);
+}
+
+
+
+
+/* Side toggle button (☰) */
+.right-side-toggle {
+  position: absolute;
+  right:350px;
+   bottom: 35px;
+  font-size: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  z-index: 1004;
+  transition: left 0.4s ease, right 0.4s ease;
+}
+
+
+
+.right-side-toggle.right-collapsed-toggle {
+  right: 40px;
+}
+
+
+
+
+/* Panel layout wrapper */
+.right-overlay-panel {
+  position: absolute;
+  top: 0;
+  bottom: env(safe-area-inset-bottom, 0px);
+   width: 350px; 
+  max-width: 350px; 
+  background-color: rgba(255, 255, 255, 0);
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 1003;
+  transition: transform 0.3s ease;
+}
+
+.right-panel-wrapper {
+  right: 0;
+}
+
+.right-panel-wrapper.right-collapsed {
+  transform: translateX(100%);
+}
+
+
+
+
+@media (max-width: 768px) {
+  .main-layer {
+    height:calc(100dvh - 120px);
+  }
+  .right-side-toggle {
+  bottom: 30px;
+}
+
+ .left-side-toggle {
+  top: 30px;
+}
+
+  .right-side-toggle.right-collapsed-toggle {
+  right: 10px;
+}
+.left-side-toggle.left-collapsed-toggle {
+  left: 10px;
+}
+
+}
+

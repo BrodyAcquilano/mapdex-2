@@ -1,0 +1,491 @@
+/* ───────────────────────────────────────────── */
+/* 📦 GLOBAL LAYOUT                              */
+/* ───────────────────────────────────────────── */
+
+.schema-builder-container {
+  height: calc(100vh - 100px);
+  background-color: #f0f4f8;
+  overflow: hidden;
+  position: relative;
+}
+
+
+
+/* ───────────────────────────────────────────── */
+/* 🧱 PANEL COLUMNS                              */
+/* ───────────────────────────────────────────── */
+
+/* MIDDLE COLUMN */
+.schema-column-middle {
+  flex: 1;
+  background-color: #ffffff;
+  border: 2px solid #303030;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  z-index: 0;
+  min-height: 100%;
+  max-height: 100%;
+}
+
+/* RIGHT PANEL */
+.schema-column-right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 2px solid rgb(48, 48, 48);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 1);
+  min-height: 100%;
+  max-height: 100%;
+}
+
+.section-header {
+  background-color: #3f4442;
+  color: white;
+  padding: 0px;
+  border-bottom: 2px solid rgb(48, 48, 48);
+  margin: 0;
+  font-size: 0.8rem;
+  font-family: monospace;
+  font-weight: 300;
+  text-align: center;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+}
+
+.section-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+/* ───────────────────────────────────────────── */
+/* 🎯 SELECTED SECTION STYLING                   */
+/* ───────────────────────────────────────────── */
+
+.selected-section-toolbar {
+  background-color: #3f4442;
+  color: white;
+  padding: 0.3rem 0.5rem;
+  border-bottom: 2px solid rgb(48, 48, 48);
+  font-size: 1rem;
+  font-weight: 300;
+  text-align: center;
+  height: 1.5rem;
+  font-family: monospace;
+}
+
+.selected-section-toolbar-title {
+  margin: 0;
+}
+
+.selected-section-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.selected-section-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 1.5rem;
+}
+
+.selected-section-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #ddd;
+  color: black;
+  border-bottom: 2px solid rgb(48, 48, 48);
+  font-size: 0.8rem;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.selected-section-item-selected {
+  background-color: #aaa3a3;
+}
+
+.selected-section-item:hover {
+  background-color: #aaa3a3;
+}
+
+.selected-section-item-content {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.selected-section-item-content-system {
+  margin-left: 0.5rem;
+}
+
+.selected-section-bullet {
+  margin-right: 0.5rem;
+  color: #333;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+.selected-section-label {
+  margin-right: 0.5rem;
+  cursor: text;
+  display: inline-block;
+  max-width: 300px;
+  min-width: 300px;
+  border: none;
+  background: transparent;
+  font-family: monospace;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .selected-section-label {
+    max-width: 300px;
+    min-width: 300px;
+  }
+}
+
+.selected-section-label:focus {
+  outline: none;
+}
+
+.selected-section-actions {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 0 0 auto;
+}
+
+.selected-section-reorder {
+  color: #972983;
+  cursor: pointer;
+  user-select: none;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1;
+  font-family: monospace;
+  padding: 0 0.5rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+
+
+.selected-section-reorder-placeholder {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Selected Section Delete Button */
+.selected-section-delete {
+  color: red;
+  cursor: pointer;
+  user-select: none;
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding: 0 0.5rem;
+  transition: color 0.2s ease;
+}
+
+
+
+.selected-section-delete-placeholder {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .selected-section-delete:hover {
+  color: darkred;
+}
+.selected-section-reorder:hover {
+  color: #d57fc6;
+  transform: scale(1.15);
+}
+}
+
+/* ───────────────────────────────────────────── */
+/* ⚙️ INPUT CONFIGURATOR TOOLBAR                 */
+/* ───────────────────────────────────────────── */
+
+.input-configurator-toolbar {
+  background-color: #3f4442;
+  color: white;
+  padding: 0.3rem 0.5rem;
+  border-bottom: 2px solid rgb(48, 48, 48);
+  font-size: 1rem;
+  font-weight: 300;
+  text-align: center;
+  height: 1.5rem;
+  font-family: monospace;
+}
+
+.input-configurator-toolbar-title {
+  margin: 0;
+}
+
+.input-configurator-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.input-configurator-type {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+.input-configurator-type-label {
+  font-weight: bold;
+}
+
+.input-configurator-type-value {
+  text-align: right;
+}
+
+/* 🔄 General Configurator Group for All Input Types */
+.input-configurator-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+/* 🔲 Checkbox/Option Styling */
+.input-configurator-option {
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+/* 📝 Notes Field Styling */
+.input-configurator-notes {
+  display: flex;
+  flex-direction: column;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.input-configurator-notes textarea {
+  margin-top: 0.3rem;
+  padding: 0.4rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+  resize: vertical;
+  height: 200px;
+}
+
+/* ───────────────────────────────────────────── */
+/* 🎛️ INPUT CONFIGURATOR: DROPDOWN OPTIONS       */
+/* ───────────────────────────────────────────── */
+
+.input-configurator-subtitle {
+  font-family: monospace;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+  font-weight: bold;
+}
+
+.input-configurator-dropdown-options {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.input-configurator-dropdown-option-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.input-configurator-dropdown-option-item input {
+  flex: 1;
+  padding: 0.4rem;
+  font-family: monospace;
+  font-size: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input-configurator-delete-option {
+  color: red;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.input-configurator-delete-option:hover {
+  color: darkred;
+}
+
+.input-configurator-add-option-button {
+  background-color: #302e2e;
+  color: white;
+  border: 1px solid #070707;
+  border-radius: 6px;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.input-configurator-add-option-button:hover {
+  background-color: #070707;
+}
+
+.input-configurator-static-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.input-configurator-static-list-label {
+  flex: 1;
+  padding: 0.4rem;
+  font-family: monospace;
+  font-size: 0.8rem;
+  border-radius: 4px;
+}
+
+.input-configurator-static-item {
+  display: flex;
+  padding: 0.4rem;
+  font-family: monospace;
+  font-size: 0.8rem;
+  background-color: #ffffff;
+  color: #222;
+  box-sizing: border-box;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+
+.input-configurator-message {
+  font-family: monospace;
+  font-size: 0.9rem;
+  background-color: #f7f7f7;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* ───────────────────────────────────────────── */
+/* 🦶 FOOTER TOOLBAR                             */
+/* ───────────────────────────────────────────── */
+
+.schema-builder-footer-toolbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #3f4442;
+  border-top: 2px solid rgb(48, 48, 48);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+}
+
+.footer-content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.save-project-button {
+  padding: 6px 16px;
+  font-size: 0.9rem;
+  font-family: monospace;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  background-color: rgb(201, 164, 28);
+  border: 1px solid rgb(145, 115, 14);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .save-project-button:hover {
+    background-color: rgb(222, 188, 52);
+  }
+}
+
+/* 🔽 Mobile drawer behavior */
+@media (max-width: 768px) {
+  .schema-builder-footer-toolbar {
+    height: auto;
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(100%);
+  }
+
+  .schema-builder-footer-toolbar.show-mobile-drawer {
+    transform: translateY(0);
+  }
+
+  .footer-content-wrapper {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .save-project-button {
+    text-align: center;
+    width: 90%;
+    max-width: 320px;
+  }
+}
+
+/* Hide on desktop */
+.drawer-toggle-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .drawer-toggle-button {
+    display: block;
+    position: absolute;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 30px);
+    left: 50vw;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    z-index: 1001;
+    transition: bottom 0.4s ease;
+  }
+
+  .drawer-toggle-button.active {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
+  }
+}

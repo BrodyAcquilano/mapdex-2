@@ -1,0 +1,303 @@
+function parseNum(raw) {
+  if (raw === "" || raw == null) return null;
+  const n = parseFloat(raw);
+  return Number.isFinite(n) ? n : null;
+}
+
+function clampCapacityFilterStr(raw, { min, max, maxLen }) {
+  if (raw == null || raw === "") return "";
+
+  let s = String(raw).replace(/\D/g, "");
+
+  if (s.length > maxLen) {
+    s = s.slice(0, maxLen);
+  }
+
+  if (s === "") {
+    return "";
+  }
+
+  const n = Number(s);
+  if (!Number.isFinite(n)) return "";
+
+  const clamped = Math.max(min, Math.min(max, n));
+  return String(clamped);
+}
+
+function enforceCapacityOrder(value, changedField) {
+  const { min, max } = value;
+
+  if (min === "" || max === "") {
+    return { ...value };
+  }
+
+  const minN = Number(min);
+  const maxN = Number(max);
+
+  if (!Number.isFinite(minN) || !Number.isFinite(maxN)) {
+    return { ...value };
+  }
+
+  if (changedField === "min" && minN > maxN) {
+    return { ...value, min: String(maxN) };
+  }
+
+  if (changedField === "max" && maxN < minN) {
+    return { ...value, max: String(minN) };
+  }
+
+  return { ...value };
+}
+
+function getDataCapacityRange(dataInput, schemaMin, schemaMax) {
+  if (!dataInput || typeof dataInput !== "object") {
+    return { lo: null, hi: null, ok: false };
+  }
+
+  const mode = dataInput.mode;
+  const singleN = parseNum(dataInput.singleValue);
+  const minN = parseNum(dataInput.min);
+  const maxN = parseNum(dataInput.max);
+
+  switch (mode) {
+    case "Single Value":
+      return singleN == null
+        ? { lo: null, hi: null, ok: false }
+        : { lo: singleN, hi: singleN, ok: true };
+
+    case "Min-Max Range":
+      if (minN == null && maxN == null) {
+        return { lo: null, hi: null, ok: false };
+      }
+      return {
+        lo: minN == null ? schemaMin : minN,
+        hi: maxN == null ? schemaMax : maxN,
+        ok: true,
+      };
+
+    default:
+      return { lo: null, hi: null, ok: false };
+  }
+}
+
+export function renderCapacityFilter(schemaInput, filterValue, setFilterValue) {
+  const schemaMin = 0;
+
+  const schemaMax = Number.isFinite(schemaInput?.maxValue)
+    ? schemaInput.maxValue
+    : 999999999;
+
+  const maxLen = Number.isFinite(schemaInput?.maxLength)
+    ? schemaInput.maxLength
+    : 9;
+
+  const value =
+    filterValue && typeof filterValue === "object"
+      ? filterValue
+      : { mode: "Any", exactValue: "", min: "", max: "" };
+
+  const modes = ["Any", "Exact Value", "Range"];
+
+  const clamp = (raw) =>
+    clampCapacityFilterStr(raw, {
+      min: schemaMin,
+      max: schemaMax,
+      maxLen,
+    });
+
+  const setMode = (nextMode) => {
+    if (nextMode === "Any") {
+      setFilterValue({
+        mode: "Any",
+        exactValue: "",
+        min: "",
+        max: "",
+      });
+      return;
+    }
+
+    if (nextMode === "Exact Value") {
+      setFilterValue({
+        mode: "Exact Value",
+        exactValue: value.exactValue ?? "",
+        min: "",
+        max: "",
+      });
+      return;
+    }
+
+    if (nextMode === "Range") {
+      setFilterValue({
+        mode: "Range",
+        exactValue: "",
+        min: value.min ?? "",
+        max: value.max ?? "",
+      });
+    }
+  };
+
+  const showExact = value.mode === "Exact Value";
+  const showRange = value.mode === "Range";
+
+  return (
+    <div key={schemaInput.id} className="form-group">
+      <label className="label-container">{schemaInput.label}:</label>
+
+      <select
+        className="value-container"
+        value={value.mode}
+        onChange={(e) => setMode(e.target.value)}
+      >
+        {modes.map((m) => (
+          <option key={m} value={m}>
+            {m}
+          </option>
+        ))}
+      </select>
+
+      {showExact && (
+        <>
+          <label
+            className="label-container"
+            htmlFor={`filter-${schemaInput.id}-exact`}
+          >
+            Exact value:
+          </label>
+          <input
+            id={`filter-${schemaInput.id}-exact`}
+            className="value-container"
+            type="text"
+            inputMode="numeric"
+            value={value.exactValue}
+            onChange={(e) =>
+              setFilterValue({
+                ...value,
+                exactValue: clamp(e.target.value),
+              })
+            }
+            placeholder={String(schemaMin)}
+          />
+        </>
+      )}
+
+      {showRange && (
+        <>
+          <label
+            className="label-container"
+            htmlFor={`filter-${schemaInput.id}-min`}
+          >
+            Min value:
+          </label>
+          <input
+            id={`filter-${schemaInput.id}-min`}
+            className="value-container"
+            type="text"
+            inputMode="numeric"
+            value={value.min}
+            onChange={(e) =>
+              setFilterValue({
+                ...value,
+                min: clamp(e.target.value),
+              })
+            }
+            onBlur={() => {
+              const fixed = enforceCapacityOrder(value, "min");
+              setFilterValue(fixed);
+            }}
+            placeholder={String(schemaMin)}
+          />
+
+          <label
+            className="label-container"
+            htmlFor={`filter-${schemaInput.id}-max`}
+          >
+            Max value:
+          </label>
+          <input
+            id={`filter-${schemaInput.id}-max`}
+            className="value-container"
+            type="text"
+            inputMode="numeric"
+            value={value.max}
+            onChange={(e) =>
+              setFilterValue({
+                ...value,
+                max: clamp(e.target.value),
+              })
+            }
+            onBlur={() => {
+              const fixed = enforceCapacityOrder(value, "max");
+              setFilterValue(fixed);
+            }}
+            placeholder={String(schemaMax)}
+          />
+        </>
+      )}
+    </div>
+  );
+}
+
+export function matchesCapacityFilter(schemaInput, filterValue, dataInput) {
+  const schemaMin = 0;
+
+  const schemaMax = Number.isFinite(schemaInput?.maxValue)
+    ? schemaInput.maxValue
+    : 999999999;
+
+  if (!filterValue) return true;
+
+  const mode = filterValue.mode;
+  if (!mode || mode === "Any") return true;
+
+  const dataRange = getDataCapacityRange(dataInput, schemaMin, schemaMax);
+  if (!dataRange.ok) return false;
+
+  if (mode === "Exact Value") {
+    const exactN = parseNum(filterValue.exactValue);
+    if (exactN == null) return true;
+    return exactN >= dataRange.lo && exactN <= dataRange.hi;
+  }
+
+  if (mode === "Range") {
+    const minN = parseNum(filterValue.min);
+    const maxN = parseNum(filterValue.max);
+
+    if (minN == null && maxN == null) return true;
+
+    const lo = minN == null ? schemaMin : minN;
+    const hi = maxN == null ? schemaMax : maxN;
+
+    const filterLo = Math.min(lo, hi);
+    const filterHi = Math.max(lo, hi);
+
+    return dataRange.lo <= filterHi && dataRange.hi >= filterLo;
+  }
+
+  return true;
+}
+
+export function createCapacityFilterState() {
+  return {
+    mode: "Any",
+    exactValue: "",
+    min: "",
+    max: "",
+  };
+}
+
+export function isCapacityFilterActive(value) {
+  if (!value?.mode || value.mode === "Any") return false;
+
+  if (value.mode === "Exact Value") {
+    return value.exactValue != null && value.exactValue !== "";
+  }
+
+  if (value.mode === "Range") {
+    return (
+      (value.min != null && value.min !== "") ||
+      (value.max != null && value.max !== "")
+    );
+  }
+
+  return false;
+}

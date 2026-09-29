@@ -1,0 +1,14 @@
+// src/aggregates/utils/aggregateConstants.js
+
+import {
+  AGGREGATE_TOOL_LIMITS,
+  AGGREGATE_FIELD_OPERATIONS_BY_TYPE,
+} from "../../../shared/validation/validationConstants.js";
+
+export const AGGREGATE_NAME_MAX_LENGTH = AGGREGATE_TOOL_LIMITS.nameMaxLength;
+export const AGGREGATE_DESCRIPTION_MAX_LENGTH = AGGREGATE_TOOL_LIMITS.descriptionMaxLength;
+export const DEFAULT_AGGREGATE_COLORS = AGGREGATE_TOOL_LIMITS.defaultColors;
+export const AGGREGATE_ALLOWED_FIELD_TYPES = AGGREGATE_TOOL_LIMITS.allowedFieldTypes;
+export const AGGREGATE_FIELD_OPERATIONS = AGGREGATE_FIELD_OPERATIONS_BY_TYPE;
+export const AGGREGATE_BOUNDARY_FILTER_TYPE_OPTIONS = AGGREGATE_TOOL_LIMITS.boundaryFilterTypeOptions;
+export const DEFAULT_AGGREGATE_BOUNDARY_FILTER_TYPE = AGGREGATE_TOOL_LIMITS.defaultBoundaryFilterType;

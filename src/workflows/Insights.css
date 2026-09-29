@@ -1,0 +1,245 @@
+/*
+ * The Insights dashboard.
+ *
+ * Unlike the other spatial tool pages this one does not sit over the
+ * map - it is a full page of its own (MainApp.jsx hides the map shell
+ * for it, the same way it does for the Schema and Account pages), so it
+ * scrolls rather than floating panels on top of something.
+ *
+ * Borrows the app's existing panel language deliberately - the Inter
+ * stack, the 2px black border, the rgb(239, 241, 241) ground and the
+ * soft outer shadow from src/styles/panels.css - so a card here reads
+ * as the same family of surface as every overlay panel, just laid out
+ * as a dashboard instead of a sidebar.
+ */
+
+.insights-page {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  color: #1f2937;
+
+  background-color: #e4e7e7;
+  padding: 24px 20px 48px;
+  box-sizing: border-box;
+}
+
+.insights-content {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ───────────────────────── Header ───────────────────────── */
+
+.insights-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.insights-title {
+  margin: 0;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #111827;
+  overflow-wrap: anywhere;
+}
+
+.insights-description {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #4b5563;
+  max-width: 70ch;
+  overflow-wrap: anywhere;
+}
+
+/* ─────────────────────── Stat cards ─────────────────────── */
+
+/*
+ * auto-fit rather than a fixed four-up, so the row reflows to 2x2 and
+ * then to a single column on narrow screens without its own breakpoints.
+ */
+.insights-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.insights-stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+
+  background-color: rgb(239, 241, 241);
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 16px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.35);
+  padding: 16px 18px;
+}
+
+.insights-stat-value {
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #111827;
+
+  /*
+   * Tabular figures so the four cards' numbers share a column width and
+   * do not jitter as counts change.
+   */
+  font-variant-numeric: tabular-nums;
+}
+
+.insights-stat-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+/* ────────────────────────── Cards ───────────────────────── */
+
+.insights-card {
+  background-color: rgb(239, 241, 241);
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 20px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.35);
+  padding: 18px 20px 20px;
+}
+
+.insights-card-title {
+  margin: 0 0 14px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.insights-empty {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.insights-footnote {
+  margin: 14px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+  font-size: 0.82rem;
+  color: #6b7280;
+}
+
+/* ──────────────────────── Bar chart ─────────────────────── */
+
+.insights-bar-chart {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/*
+ * Label column sized to the longest real type name
+ * ("MultiLineString"), track takes the rest, value column fixed - so
+ * every bar starts and ends on the same two vertical lines and the
+ * counts stay readable as a column.
+ */
+.insights-bar-row {
+  display: grid;
+  grid-template-columns: minmax(96px, 150px) 1fr 48px;
+  align-items: center;
+  gap: 12px;
+}
+
+.insights-bar-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.insights-bar-tag {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  color: #92400e;
+  background-color: rgba(250, 204, 21, 0.35);
+  border-radius: 999px;
+  padding: 2px 6px;
+}
+
+.insights-bar-track {
+  position: relative;
+  display: block;
+  height: 22px;
+
+  background-color: rgba(0, 0, 0, 0.07);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.insights-bar-fill {
+  display: block;
+  height: 100%;
+
+  background-color: #2563eb;
+  border-radius: 999px;
+
+  /*
+   * A count of 0 gives a 0% width and therefore no visible bar at all,
+   * which is correct - the row still shows its label and its 0, so the
+   * type is reported rather than hidden.
+   */
+  transition: width 220ms ease;
+}
+
+.insights-bar-fill-undeclared {
+  background-color: #9ca3af;
+}
+
+.insights-bar-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 600px) {
+  .insights-page {
+    padding: 16px 12px 40px;
+  }
+
+  .insights-title {
+    font-size: 1.5rem;
+  }
+
+  .insights-bar-row {
+    grid-template-columns: minmax(80px, 110px) 1fr 40px;
+    gap: 8px;
+  }
+}

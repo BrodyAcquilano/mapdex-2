@@ -1,0 +1,383 @@
+/* src/map/tools/GeometryToolbar.css */
+
+
+.geometry-toolbar-wrapper {
+  position: absolute;
+
+  top: 120px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /*
+   * Desktop gap between the main toolbar
+   * and edit toolbar.
+   */
+  gap: 8px;
+
+  z-index: 1000;
+}
+
+
+.geometry-toolbar {
+  display: flex;
+  align-items: stretch;
+
+  background: #f8f9fa;
+
+  border: 1px solid #cfd4da;
+  border-radius: 10px;
+
+  /*
+   * Visible so custom hover tooltips can extend
+   * outside the toolbar.
+   */
+  overflow: visible;
+
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+
+.geometry-edit-toolbar {
+  /*
+   * Separate class intentionally retained so the
+   * edit toolbar can be positioned/styled independently
+   * later if needed.
+   */
+}
+
+
+.geometry-toolbar-button {
+  position: relative;
+
+  width: 66px;
+  min-height: 58px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 3px;
+
+  padding: 7px 9px;
+
+  background: #f8f9fa;
+
+  border: none;
+  border-right: 1px solid #d7dadd;
+
+  color: #3f454b;
+
+  cursor: pointer;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  transition:
+    background-color 120ms ease,
+    box-shadow 120ms ease,
+    transform 120ms ease;
+}
+
+
+.geometry-toolbar-button:first-child {
+  border-radius: 9px 0 0 9px;
+}
+
+
+.geometry-toolbar-button:last-child {
+  border-right: none;
+  border-radius: 0 9px 9px 0;
+}
+
+
+.geometry-toolbar-button:only-child {
+  border-radius: 9px;
+}
+
+
+.geometry-tool-icon {
+  width: 25px;
+  height: 25px;
+
+  overflow: visible;
+}
+
+
+.geometry-tool-label {
+  font-size: 0.7rem;
+  line-height: 1;
+
+  color: #555b61;
+
+  white-space: nowrap;
+}
+
+
+/* ─────────────────────────────
+   Point
+───────────────────────────── */
+
+.geometry-icon-fill {
+  fill: #f8f9fa;
+  stroke: #3f454b;
+  stroke-width: 2;
+}
+
+
+/* ─────────────────────────────
+   Lines + Nodes
+───────────────────────────── */
+
+.geometry-icon-line {
+  fill: none;
+
+  stroke: #3f454b;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+.geometry-icon-node {
+  fill: #f8f9fa;
+
+  stroke: #3f454b;
+  stroke-width: 1.7;
+}
+
+
+/* ─────────────────────────────
+   Polygon
+───────────────────────────── */
+
+.geometry-icon-polygon {
+  fill: rgba(59, 130, 246, 0.16);
+
+  stroke: #3f454b;
+  stroke-width: 1.7;
+  stroke-linejoin: round;
+}
+
+
+/* ─────────────────────────────
+   Edit
+───────────────────────────── */
+
+.geometry-icon-cursor {
+  fill: #f8f9fa;
+
+  stroke: #3f454b;
+  stroke-width: 1.7;
+  stroke-linejoin: round;
+}
+
+
+.geometry-icon-edit-node {
+  fill: #f8f9fa;
+
+  stroke: #3f454b;
+  stroke-width: 1.5;
+}
+
+
+/* ─────────────────────────────
+   Midpoint
+───────────────────────────── */
+
+.geometry-icon-midpoint-circle {
+  fill: #f8f9fa;
+
+  stroke: #3f454b;
+  stroke-width: 1.7;
+}
+
+
+.geometry-icon-midpoint-plus {
+  stroke: #3f454b;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+
+/* ─────────────────────────────
+   Remove Point
+───────────────────────────── */
+
+.geometry-icon-remove-circle {
+  fill: #f8f9fa;
+
+  stroke: #3f454b;
+  stroke-width: 1.7;
+}
+
+
+.geometry-icon-remove-line {
+  stroke: #3f454b;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* ─────────────────────────────
+   Merge 
+───────────────────────────── */
+
+.geometry-icon-merge-arrow {
+  fill: #3f454b;
+  stroke: none;
+}
+
+
+/* ─────────────────────────────
+   Active / Pressed State
+───────────────────────────── */
+
+.geometry-toolbar-button.active {
+  background: #e4e7ea;
+
+  box-shadow:
+    inset 2px 2px 5px rgba(0, 0, 0, 0.18),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.8);
+}
+
+
+/* ─────────────────────────────
+   Custom Tooltips
+───────────────────────────── */
+
+.geometry-toolbar-button[data-tooltip]::after {
+  content: attr(data-tooltip);
+
+  position: absolute;
+
+  left: 50%;
+  bottom: calc(100% + 8px);
+
+  transform:
+    translateX(-50%)
+    translateY(3px);
+
+  min-width: max-content;
+  max-width: 220px;
+
+  padding: 6px 8px;
+
+  background: rgba(45, 48, 52, 0.96);
+  color: white;
+
+  border-radius: 5px;
+
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 1.2;
+
+  text-align: center;
+  white-space: nowrap;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+
+  z-index: 1100;
+}
+
+
+.geometry-toolbar-button[data-tooltip]::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  bottom: calc(100% + 3px);
+
+  transform: translateX(-50%);
+
+  width: 0;
+  height: 0;
+
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgba(45, 48, 52, 0.96);
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  transition: opacity 120ms ease;
+
+  z-index: 1100;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+  .geometry-toolbar-button:hover {
+    background: #eef0f2;
+  }
+
+
+  .geometry-toolbar-button.active:hover {
+    background: #e4e7ea;
+  }
+
+
+  .geometry-toolbar-button[data-tooltip]:hover::after {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(0);
+  }
+
+
+  .geometry-toolbar-button[data-tooltip]:hover::before {
+    opacity: 1;
+  }
+}
+
+
+/* ─────────────────────────────
+   Mobile
+───────────────────────────── */
+
+@media (max-width: 768px) {
+  .geometry-toolbar-wrapper {
+    top: 120px;
+
+    /*
+     * Mobile gap between the main toolbar
+     * and edit toolbar.
+     *
+     * Change this independently from desktop.
+     */
+    gap: 6px;
+  }
+
+
+  .geometry-toolbar-button {
+    width: 54px;
+    min-height: 52px;
+
+    padding: 6px;
+  }
+
+
+  .geometry-tool-icon {
+    width: 23px;
+    height: 23px;
+  }
+
+
+  .geometry-tool-label {
+    font-size: 0.64rem;
+  }
+}

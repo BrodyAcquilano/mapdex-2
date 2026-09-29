@@ -1,0 +1,558 @@
+/* ─────────────────────────────────────────────
+   Full-screen guestbook shell
+───────────────────────────────────────────── */
+
+.guestbook-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(25px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.guestbook-modal {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 20px;
+  padding-left:32px;
+  padding-right:32px;
+  padding-bottom:55px;
+  
+     background-image: url('/guestbook-backdrop.png'); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: 100% 100%; /* Resize the background image to cover the entire container */
+  
+  color: #111;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+    justify-content: space-between;
+}
+
+/* ─────────────────────────────────────────────
+   Header
+───────────────────────────────────────────── */
+
+.guestbook-title {
+
+  text-align: center;
+  
+    font-family:
+    "Playfair Display",
+    "Times New Roman",
+    serif;
+
+      font-size: 1.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+
+  color: rgb(233, 191, 95);
+  text-shadow:
+    2px 1px 3px rgb(0, 0, 0);
+}
+
+
+
+.guestbook-close {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+
+ 
+  color: rgb(236, 242, 145);
+  background: rgba(144, 95, 26, 0.826);
+
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.1s ease,
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .guestbook-close:hover {
+    background: rgba(251, 179, 79, 0.826);
+    border-color: rgb(238, 243, 138);
+    transform: scale(1.15);
+    color:white;
+    box-shadow: 2px 0 10px rgb(238, 243, 138);
+  }
+}
+
+@media (max-width: 990px )  {
+  .guestbook-close{
+   top:42px;
+  }
+
+
+
+}
+ 
+
+
+/* ─────────────────────────────────────────────
+   Two-page spread
+───────────────────────────────────────────── */
+
+.guestbook-spread {
+  flex: 1;
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  align-items: stretch;
+ 
+}
+
+/* ─────────────────────────────────────────────
+   Pages (FIXED SIZE — NEVER FLEX)
+───────────────────────────────────────────── */
+
+.guestbook-page {
+    position: relative;
+  width: 820px;
+  height: 500px;
+  padding: 20px 22px;
+
+  background: linear-gradient(
+    to bottom,
+    rgb(252, 248, 235),
+    rgb(245, 238, 215)
+  );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(160, 130, 80, 0.4),
+    0 6px 20px rgba(0, 0, 0, 0.15);
+
+  cursor: pointer;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+
+
+}
+
+
+@media (max-width: 990px )  {
+  .guestbook-modal{
+    padding-left:0px;
+    padding-right:0px;
+    padding-bottom:200px;
+    margin:0px;
+  }
+.guestbook-spread {
+width: 100vw;
+  padding:0px;
+  margin:0px;
+
+}
+  .guestbook-page {
+ justify-content: center;
+  width: 95%;
+pointer-events: none;
+height:450px;
+  }
+
+
+}
+
+
+/* ─────────────────────────────────────────────
+   Table layout (CENTER-SPLIT FLEX METHOD)
+───────────────────────────────────────────── */
+
+.guestbook-table {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Each row spans full width */
+.guestbook-row {
+    position: relative;
+  display: flex;
+  width: 100%;
+  padding: 6px 0;
+  gap:50px;
+}
+
+/* Left + right column containers */
+.guestbook-col-name,
+.guestbook-col-comment {
+  width: 50%;
+  color:rgb(0, 0, 0);
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(180, 150, 90, 0.6);
+  box-sizing: border-box;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.35;
+   
+}
+
+@media (max-width: 990px)  {
+  .guestbook-col-name,
+.guestbook-col-comment  {
+    
+font-size:0.5rem;
+
+  }
+
+
+}
+
+/* Left column pushes inward */
+.guestbook-col-name {
+
+  text-align: left;
+  
+  overflow-wrap: break-word;
+ 
+
+}
+
+/* Right column pushes inward */
+.guestbook-col-comment {
+
+  text-align: left;
+  overflow-wrap: break-word;
+ 
+}
+
+
+
+/* Checkbox floats in left margin, never affects layout */
+.guestbook-row-checkbox {
+  position: absolute;
+  left: -22px; /* adjust for visual balance */
+  top: 50%;
+  transform: translateY(-80%);
+
+  cursor: pointer;
+   pointer-events:visible;
+ 
+}
+
+/*Hidden styling*/
+
+
+
+.guestbook-row-hidden .guestbook-col-name,
+.guestbook-row-hidden .guestbook-col-comment {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: rgba(0, 0, 0,0.45) ;
+  color: rgba(0,0,0,0.45);
+    filter: grayscale(0.45);
+  
+}
+
+
+
+/* ─────────────────────────────────────────────
+   Header styling (same geometry)
+───────────────────────────────────────────── */
+
+.guestbook-header .guestbook-col-name,
+.guestbook-header .guestbook-col-comment {
+  font-weight: 600;
+  color: rgb(130, 95, 40);
+  border-bottom: 2px solid rgba(160, 120, 60, 0.9);
+  text-align:center;
+
+}
+
+
+/* ─────────────────────────────────────────────
+   Page number
+───────────────────────────────────────────── */
+
+.guestbook-page-number {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-size: 0.75rem;
+  color: rgba(120, 95, 50, 0.7);
+  font-family: monospace;
+  letter-spacing: 0.05em;
+   user-select:none;
+}
+
+/* ─────────────────────────────────────────────
+   Footer
+───────────────────────────────────────────── */
+
+.guestbook-footer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+.guestbook-sign-button {
+
+  background: rgba(144, 95, 26, 1);
+  color: rgb(236, 242, 145);
+
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+    border-color: rgb(238, 243, 138)
+  
+}
+
+.guestbook-editor-button {
+  background: rgba(144, 95, 26, 0.826);
+  color: rgb(236, 242, 145);
+ padding: 10px 26px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .guestbook-sign-button:hover {
+    
+  background: rgba(251, 179, 79, 1);
+    color: rgb(255, 255, 255);
+       box-shadow: 2px 0 10px rgb(238, 243, 138);
+    transform: scale(1.05);
+  
+  }
+
+  .guestbook-editor-button:hover {
+     background: rgba(251, 179, 79, 1);
+    color: rgb(255, 255, 255);
+       box-shadow: 2px 0 10px rgb(238, 243, 138);
+    transform: scale(1.05);
+ 
+  }
+}
+
+
+
+
+
+/* ─────────────────────────────────────────────
+   Signing Overlay
+───────────────────────────────────────────── */
+
+.guestbook-sign-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guestbook-sign-card {
+  width: 380px;
+ position:absolute;
+  background: rgb(96, 25, 25);
+  color: rgb(233, 191, 95);
+  border:10px solid rgb(233, 191, 95);
+  padding: 22px 24px;
+  border-radius: 14px;
+
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(160, 130, 80, 0.35);
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+@media (max-width: 990px) {
+ 
+  .guestbook-sign-card{
+    max-width: 300px;
+  }
+}
+
+.guestbook-sign-card input,
+.guestbook-sign-card textarea {
+  font-family: ui-monospace, monospace;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.guestbook-sign-card input,
+.guestbook-sign-card textarea  {
+  font-family: ui-monospace, monospace;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+
+}
+
+.guestbook-sign-actions {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+/* Base button style */
+.guestbook-sign-actions button {
+  min-width: 110px;
+  padding: 8px 20px;
+
+  font-family: ui-monospace, monospace;
+  font-size: 0.9rem;
+
+  border-radius: 8px;
+  border: 2px solid rgb(233, 191, 95);
+
+  background: rgba(144, 95, 26, 0.9);
+  color: rgb(236, 242, 145);
+
+  cursor: pointer;
+  transition:
+    transform 0.1s ease,
+}
+
+/* Disabled state */
+.guestbook-sign-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Hover effects — desktop only */
+@media (hover: hover) and (pointer: fine) {
+  .guestbook-sign-actions button:hover:not(:disabled) {
+    background: rgba(251, 179, 79, 1);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgb(238, 243, 138);
+  }
+}
+
+/* Touch feedback — mobile */
+@media (hover: none) and (pointer: coarse) {
+  .guestbook-sign-actions button:active {
+    transform: scale(0.97);
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   Overlay close button (shared)
+───────────────────────────────────────────── */
+
+.guestbook-overlay-close {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  background: rgb(245, 245, 245);
+  color: #000;
+
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 2;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .guestbook-overlay-close:hover {
+    background: rgb(255, 220, 160);
+    transform: scale(1.1);
+  }
+}
+
+/* ─────────────────────────────────────────────
+  Arrow buttons 
+───────────────────────────────────────────── */
+
+.guestbook-arrow {
+  position: absolute;
+  top: 73%;
+ 
+  z-index: 20;
+
+  width: 52px;
+  height: 52px;
+
+  border-radius: 999px;
+ 
+  border: 2px solid rgb(233, 191, 95);
+
+  background: rgba(144, 95, 26, 0.8);
+  color: rgb(236, 242, 145);
+  font-size: 34px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guestbook-arrow-left {
+  left: 16px;
+}
+
+.guestbook-arrow-right {
+  right: 16px;
+}
+
+ 
+  
+
+
+
+
+@media (hover: hover) and (pointer: fine) {
+  .guestbook-arrow:hover {
+     background: rgba(251, 179, 79, 1);
+    color: rgb(255, 255, 255);
+       box-shadow: 2px 0 10px rgb(238, 243, 138);
+    transform: scale(1.05);
+  }
+
+
+
+}
+
+@media (max-width: 990px){
+   .guestbook-arrow {
+ 
+  top: 60%;
+ }
+
+}
